@@ -1,0 +1,116 @@
+{
+  "name": "workspace-color",
+  "displayName": "Workspace Color",
+  "description": "Color the VS Code title bar, activity bar, and status bar per workspace.",
+  "version": "0.0.1",
+  "packageManager": "pnpm@12.0.0",
+  "publisher": "gvastethecreator",
+  "license": "MIT",
+  "keywords": [
+    "workspace",
+    "color",
+    "title bar",
+    "status bar",
+    "activity bar"
+  ],
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Themes",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "workspaceColor.applyFromFolder",
+        "title": "Apply Color from Folder",
+        "category": "Workspace Color"
+      },
+      {
+        "command": "workspaceColor.pick",
+        "title": "Pick Color",
+        "category": "Workspace Color"
+      },
+      {
+        "command": "workspaceColor.surprise",
+        "title": "Surprise Me",
+        "category": "Workspace Color"
+      },
+      {
+        "command": "workspaceColor.reset",
+        "title": "Remove Color",
+        "category": "Workspace Color"
+      },
+      {
+        "command": "workspaceColor.openPanel",
+        "title": "Open Color Settings",
+        "category": "Workspace Color"
+      }
+    ],
+    "configuration": {
+      "title": "Workspace Color",
+      "properties": {
+        "workspaceColor.label": {
+          "type": "string",
+          "default": "",
+          "description": "Name shown on the left of the status bar. Empty uses the folder or workspace name."
+        },
+        "workspaceColor.color": {
+          "type": "string",
+          "format": "color",
+          "default": "",
+          "description": "Hex color for this workspace. Empty uses a color derived from the folder name."
+        },
+        "workspaceColor.autoApply": {
+          "type": "boolean",
+          "default": true,
+          "description": "Apply the workspace color when the window opens."
+        },
+        "workspaceColor.stepped": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use a slightly different tone on each bar so they read as steps, not a flat block."
+        },
+        "workspaceColor.titleBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Color the window shell (titleBar). In the new UI this is the backdrop behind the whole chrome."
+        },
+        "workspaceColor.activityBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Color the activity bar on the side (activityBar) and on the top or bottom (activityBarTop)."
+        },
+        "workspaceColor.statusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Color the status bar."
+        },
+        "workspaceColor.commandCenter": {
+          "type": "boolean",
+          "default": true,
+          "description": "Color the command center."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc --noEmit && node esbuild.js --production",
+    "compile": "tsc --noEmit && node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "package": "tsc --noEmit && node esbuild.js --production",
+    "check-types": "tsc --noEmit",
+    "test": "node --test --experimental-strip-types src/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/vscode": "^1.90.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.9.2"
+  }
+}
