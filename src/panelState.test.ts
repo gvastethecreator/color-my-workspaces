@@ -26,5 +26,6 @@ describe("chromeCompatibilityNote", () => {
   it("explains Modern UI blending the bars", () => {
     const note = chromeCompatibilityNote({ modernUi: true });
     assert.equal(note.includes("title bar color"), true);
+    assert.equal(note.includes("Disable Modern UI"), true);
   });
 });

@@ -7,6 +7,7 @@ docs/**
 .github/**
 .scratch/**
 .local/**
+.code-review-graph/**
 .gitignore
 .gitattributes
 pnpm-lock.yaml

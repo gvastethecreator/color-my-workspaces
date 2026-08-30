@@ -115,6 +115,9 @@ importers:
       '@types/vscode':
         specifier: ^1.90.0
         version: 1.134.0
+      '@vscode/codicons':
+        specifier: 0.0.46-24
+        version: 0.0.46-24
       esbuild:
         specifier: ^0.28.2
         version: 0.28.2
@@ -286,6 +289,9 @@ packages:
   '@types/vscode@1.134.0':
     resolution: {integrity: sha512-NDEu0hg4sF7+vvFsADsktqUJ6f80LHSZvVK2Ovo1XiQ0/VHck1O3zst+ZZyVA/uvz6vo6LcuoqU2q48YMqOwWw==}
 
+  '@vscode/codicons@0.0.46-24':
+    resolution: {integrity: sha512-KIDWUYxG6eh+DHRg+3G4bS487T+g1ZkLfB4HylOBbCcHsvLdfLMRM/m92DS1Ljhi8nglLr9ucwwWhHTEAC+DpA==}
+
   esbuild@0.28.2:
     resolution: {integrity: sha512-HKVLS8dvII+xoKW9kmqxbRKrnWEXfJJr/FZhhJmiqIB0e053QNYFqOBouTMO/k5sID4MvCiUCvv8b9M4h32wIA==}
     engines: {node: '>=18'}
@@ -384,6 +390,8 @@ snapshots:
       undici-types: 7.18.2
 
   '@types/vscode@1.134.0': {}
+
+  '@vscode/codicons@0.0.46-24': {}
 
   esbuild@0.28.2:
     optionalDependencies:

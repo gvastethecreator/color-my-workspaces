@@ -13,6 +13,12 @@ export type PanelState = {
   chromeNote: string;
   flags: ChromeFlags;
   tones: Record<ChromeElement, string>;
+  statusPreviewText: string;
+  statusForeground: string;
+  chipColor: string;
+  showStatusBarLabel: boolean;
+  showStatusBarIcon: boolean;
+  statusIcon: string;
   palette: readonly PaletteSwatch[];
 };
 
@@ -20,19 +26,25 @@ export type PanelMessage =
   | { type: "ready" }
   | { type: "setColor"; color: string }
   | { type: "setLabel"; label: string }
+  | { type: "setShowStatusBarLabel"; enabled: boolean }
+  | { type: "setShowStatusBarIcon"; enabled: boolean }
+  | { type: "setIcon"; icon: string }
   | { type: "setFlag"; element: ChromeElement; enabled: boolean }
   | { type: "setStepped"; enabled: boolean }
   | { type: "applyFromFolder" }
   | { type: "surprise" }
   | { type: "reset" }
-  | { type: "disableModernUi" };
+  | { type: "resetSettings" }
+  | { type: "copyHex"; color: string }
+  | { type: "setSeparateBars"; enabled: boolean }
+  | { type: "openUrl"; url: string };
 
 export function chromeCompatibilityNote(input: {
   modernUi: boolean;
   activityBarLocation?: string;
 }): string {
   if (input.modernUi) {
-    return "Modern UI uses the title bar color as the window backdrop. Activity bar and command center may stay transparent unless you color the bars separately.";
+    return "Modern UI uses the title bar color as the window backdrop. Activity bar and command center may stay transparent. Turn on Disable Modern UI, then reload, to paint each bar on its own. You can turn Modern UI back on from the same control.";
   }
   if (input.activityBarLocation === "top" || input.activityBarLocation === "bottom") {
     return "The activity bar is on the top or bottom. Its color is written to activityBarTop, not only activityBar.";

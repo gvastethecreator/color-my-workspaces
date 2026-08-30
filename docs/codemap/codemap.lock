@@ -1,0 +1,65 @@
+{
+  "source_commit": "9b391ac4ea3b9c78130ed4e89b5296475e65b227",
+  "working_tree_dirty": true,
+  "generated_at": "2026-08-30T20:30:00Z",
+  "scanned_scope": [
+    "."
+  ],
+  "excluded_directories": [
+    ".agents",
+    ".cache",
+    ".git",
+    ".hg",
+    ".next",
+    ".nuxt",
+    ".obsidian",
+    ".svn",
+    ".turbo",
+    ".venv",
+    ".vscode",
+    "__pycache__",
+    "build",
+    "coverage",
+    "dist",
+    "docs/codemap",
+    "generated",
+    "node_modules",
+    "out",
+    "target",
+    "vendor",
+    "venv"
+  ],
+  "fingerprint_algorithm": "sha256-path-content-v2",
+  "modules": [
+    {
+      "id": ".",
+      "path": ".",
+      "file_count": 12,
+      "fingerprint": "7fa7764b57159d0a9dca3b1a5e28649cf8b909819f31b93e79bbdd63619f8e0d"
+    },
+    {
+      "id": ".github",
+      "path": ".github",
+      "file_count": 1,
+      "fingerprint": "5dd92422d27bb1f1b08180051dff94038b8c99cff93f53ea4f876780910957db"
+    },
+    {
+      "id": "docs",
+      "path": "docs",
+      "file_count": 4,
+      "fingerprint": "a3d0d291fc1e5d07f0842932ad2819c740383c6a30771b5c56c2908496309cd8"
+    },
+    {
+      "id": "src",
+      "path": "src",
+      "file_count": 13,
+      "fingerprint": "18e86e1a0b3b77b4cc155a3ef3caa18d95449f3da0afe5f37fca7be702b6bbdf"
+    },
+    {
+      "id": "test-workspace",
+      "path": "test-workspace",
+      "file_count": 1,
+      "fingerprint": "017f97941f578e8fdc63e4acba90a9f45f024201fa29214e668e425d4c9e4827"
+    }
+  ]
+}

@@ -9,5 +9,8 @@ logs/
 .env.*
 .scratch/
 .local/
+.code-review-graph/
+docs/codemap/.staging/
+docs/codemap/*.html
 .vscode/settings.json
 test-workspace/.vscode/

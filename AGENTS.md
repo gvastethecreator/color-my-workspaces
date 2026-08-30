@@ -27,9 +27,11 @@ F5 (`Run Extension`) compiles, then opens `test-workspace/` so chrome colors do 
 ## Layout
 
 - `src/extension.ts` — activate, persist, panel messages, status bar
+- `src/quickActions.ts` — palette and status Quick Picks
+- `src/statusDisplay.ts` — status bar text and tooltip
 - `src/chrome.ts` — theme-token map
 - `src/panel.ts` — settings webview (English)
-- `src/color.ts`, `src/palette.ts`, `src/identity.ts`, `src/merge.ts`, `src/panelState.ts`
+- `src/color.ts`, `src/palette.ts`, `src/identity.ts`, `src/icons.ts`, `src/merge.ts`, `src/panelState.ts`
 - `src/*.test.ts` — Node test runner
 - `test-workspace/` — Extension Host folder
 - `docs/codemap/` — generated map; refresh with `$maintain-code-map`
@@ -38,7 +40,7 @@ F5 (`Run Extension`) compiles, then opens `test-workspace/` so chrome colors do 
 
 ### Issue tracker
 
-Local Markdown in `.scratch/`. No GitHub remote yet. See `docs/agents/issue-tracker.md`.
+GitHub Issues and the linked GitHub Project hold live state. `.scratch/` holds synchronized local mirrors. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 

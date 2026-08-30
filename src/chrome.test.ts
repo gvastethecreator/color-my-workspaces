@@ -48,11 +48,12 @@ describe("buildChromeColors", () => {
     assert.equal(colors["activityBar.background"], "#1f4b6e");
   });
 
-  it("colors both the side activity bar and the top activity bar", () => {
-    const colors = buildChromeColors("#1f4b6e", ["activityBar"]);
-    assert.equal(colors["activityBar.background"], "#1f4b6e");
-    assert.equal(colors["activityBarTop.background"], "#1f4b6e");
-    assert.equal(typeof colors["activityBarTop.foreground"], "string");
+  it("sets borders so bars read as separate", () => {
+    const colors = buildChromeColors("#1f4b6e", ALL_CHROME_ELEMENTS);
+    assert.equal(typeof colors["titleBar.border"], "string");
+    assert.equal(typeof colors["statusBar.border"], "string");
+    assert.equal(typeof colors["activityBar.border"], "string");
+    assert.equal(typeof colors["commandCenter.inactiveBackground"], "string");
   });
 });
 

@@ -1,37 +1,32 @@
 # Workspace Color
 
-Color the VS Code title bar, activity bar, status bar, and command center per workspace.
+Color the VS Code or Cursor title bar, activity bar, status bar, and command center so each folder is easy to tell apart.
 
-This does not color the Windows taskbar. VS Code has no API for that. Colors are written to `workbench.colorCustomizations` in the workspace (`.vscode/settings.json` or a `.code-workspace` file).
+This extension writes `workbench.colorCustomizations` in the workspace. It cannot color the Windows taskbar.
 
-A CSS gradient is not possible. **Stepped tones** gives each bar a slightly different solid shade of the same color.
+## Quick start
 
-In current VS Code and Cursor (Modern UI), `titleBar` is the window-shell backdrop. The activity bar on top uses `activityBarTop.*`, not only `activityBar.*`. This extension writes both. If the other bars stay transparent, use **Color bars separately** in the panel (`workbench.experimental.modernUI: false`).
+Install the VSIX, open a folder, then click the project name on the left of the status bar.
 
-## Try it
+In the panel you can pick a color, name the workspace, and choose which bars to paint. If bars stay transparent, turn on **Disable Modern UI** and reload.
 
-1. `pnpm install`
-2. `pnpm test`
-3. F5 (`Run Extension`)
-4. In the new window, click the project name on the left of the status bar
-
-The host opens `test-workspace/` so color settings are not written into this repo. See [development](docs/development.md).
+F5 (`Run Extension`) opens `test-workspace/` so test colors do not land in this repo. See [development](docs/development.md).
 
 ## Commands
 
-- **Open Color Settings** — color, label, and which bars to paint (also opens from the status bar name)
-- **Apply Color from Folder** — stable color from the folder name
-- **Pick Color** — opens the same panel
-- **Surprise Me** — random color
-- **Remove Color** — removes keys this extension added and leaves other `colorCustomizations` intact
+- **Change Color...** — also runs from the status bar
+- **Open Workspace Color Settings**
+- **Pick Color** / **Apply Color from Folder** / **Surprise Me**
+- **Clear Color** — drops keys this extension added; leaves other customizations
+- **Reset Settings** — restores Workspace Color options to defaults and clears the color
 
 ## Settings
 
-- `workspaceColor.label` — status bar name. Empty uses the folder or workspace name
-- `workspaceColor.color` — hex. Empty is derived from the folder
-- `workspaceColor.autoApply` — apply on open (default `true`)
-- `workspaceColor.stepped` — stepped tones (default `true`)
-- `workspaceColor.titleBar` / `activityBar` / `statusBar` / `commandCenter` — enable each bar separately
+- `workspaceColor.color` — hex. Empty uses a color from the folder name
+- `workspaceColor.label` / `workspaceColor.showStatusBarLabel` — status bar name
+- `workspaceColor.icon` / `workspaceColor.showStatusBarIcon` — Codicon on the status bar (`folder`, `rocket`, …). A color pill is shown when the name and icon are both hidden
+- `workspaceColor.titleBar` / `activityBar` / `statusBar` / `commandCenter`
+- `workspaceColor.stepped` — slightly different shade on each bar
 
 ## License
 

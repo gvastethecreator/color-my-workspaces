@@ -6,6 +6,14 @@
   "packageManager": "pnpm@12.0.0",
   "publisher": "gvastethecreator",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gvastethecreator/vscode-workspace-color.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gvastethecreator/vscode-workspace-color/issues"
+  },
+  "homepage": "https://github.com/gvastethecreator/vscode-workspace-color#readme",
   "keywords": [
     "workspace",
     "color",
@@ -37,18 +45,28 @@
         "category": "Workspace Color"
       },
       {
+        "command": "workspaceColor.quickActions",
+        "title": "Change Color...",
+        "category": "Workspace Color"
+      },
+      {
         "command": "workspaceColor.surprise",
         "title": "Surprise Me",
         "category": "Workspace Color"
       },
       {
         "command": "workspaceColor.reset",
-        "title": "Remove Color",
+        "title": "Clear Color",
+        "category": "Workspace Color"
+      },
+      {
+        "command": "workspaceColor.resetSettings",
+        "title": "Reset Settings",
         "category": "Workspace Color"
       },
       {
         "command": "workspaceColor.openPanel",
-        "title": "Open Color Settings",
+        "title": "Open Workspace Color Settings",
         "category": "Workspace Color"
       }
     ],
@@ -59,6 +77,21 @@
           "type": "string",
           "default": "",
           "description": "Name shown on the left of the status bar. Empty uses the folder or workspace name."
+        },
+        "workspaceColor.showStatusBarLabel": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the project name on the left of the status bar. Turn off to hide the name."
+        },
+        "workspaceColor.icon": {
+          "type": "string",
+          "default": "",
+          "description": "Codicon id shown on the left of the status bar, such as folder or rocket. Empty uses folder when the icon is shown."
+        },
+        "workspaceColor.showStatusBarIcon": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show a Codicon on the left of the status bar. Turn off to hide the icon."
         },
         "workspaceColor.color": {
           "type": "string",
@@ -110,6 +143,7 @@
   "devDependencies": {
     "@types/node": "^24.3.0",
     "@types/vscode": "^1.90.0",
+    "@vscode/codicons": "0.0.46-24",
     "esbuild": "^0.28.2",
     "typescript": "^5.9.2"
   }

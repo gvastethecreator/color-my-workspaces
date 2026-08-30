@@ -6,6 +6,8 @@ import {
   contrastForeground,
   hexWithAlpha,
   hslToHex,
+  hexToHsl,
+  applyHslContrast,
   isValidHex,
   mixHex,
   normalizeHex,
@@ -87,5 +89,23 @@ describe("color math", () => {
 
   it("moves lightness away from the original", () => {
     assert.notEqual(adjustLightness("#336699", 12), "#336699");
+  });
+
+  it("reads hsl from hex", () => {
+    const hsl = hexToHsl("#336699");
+    assert.ok(hsl);
+    assert.equal(Math.round(hsl.h), 210);
+  });
+
+  it("leaves color unchanged at contrast 50", () => {
+    const hsl = hexToHsl("#336699")!;
+    const next = applyHslContrast(hsl.h, hsl.s, hsl.l, 50);
+    assert.equal(hslToHex(next.h, next.s, next.l), "#336699");
+  });
+
+  it("pushes lightness away from mid when contrast is high", () => {
+    const hsl = hexToHsl("#336699")!;
+    const next = applyHslContrast(hsl.h, hsl.s, hsl.l, 100);
+    assert.ok(Math.abs(next.l - 50) >= Math.abs(hsl.l - 50));
   });
 });

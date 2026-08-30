@@ -114,6 +114,25 @@ export function hslToHex(h: number, s: number, l: number): string {
   return rgbToHex(hslToRgb(h, s, l));
 }
 
+export function hexToHsl(hex: string): { h: number; s: number; l: number } | undefined {
+  const rgb = parseHex(hex);
+  return rgb ? rgbToHsl(rgb) : undefined;
+}
+
+export function applyHslContrast(
+  h: number,
+  s: number,
+  l: number,
+  contrast: number,
+): { h: number; s: number; l: number } {
+  const t = clamp(contrast, 0, 100) / 50;
+  return {
+    h,
+    s: clamp(s * (0.35 + t * 0.65), 0, 100),
+    l: clamp(50 + (l - 50) * t, 0, 100),
+  };
+}
+
 export function relativeLuminance({ r, g, b }: Rgb): number {
   const lin = (n: number) => {
     const c = n / 255;

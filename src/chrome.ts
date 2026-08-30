@@ -79,6 +79,7 @@ export function buildChromeColors(
     colors["titleBar.activeForeground"] = titleFg;
     colors["titleBar.inactiveBackground"] = inactiveBg;
     colors["titleBar.inactiveForeground"] = inactiveFg;
+    colors["titleBar.border"] = hexWithAlpha(titleFg, 0.18);
     colors["sash.hoverBorder"] = titleBg;
   }
 
@@ -95,6 +96,7 @@ export function buildChromeColors(
     colors["activityBarTop.inactiveForeground"] = hexWithAlpha(activityFg, 0.62);
     colors["activityBarTop.activeBorder"] = badge;
     colors["activityBarTop.activeBackground"] = mixHex(activityBg, activityFg, 0.12);
+    colors["activityBar.border"] = hexWithAlpha(activityFg, 0.18);
   }
 
   if (selected.has("statusBar")) {
@@ -106,6 +108,7 @@ export function buildChromeColors(
     colors["statusBar.debuggingForeground"] = debugFg;
     colors["statusBarItem.remoteBackground"] = statusBg;
     colors["statusBarItem.remoteForeground"] = statusFg;
+    colors["statusBar.border"] = hexWithAlpha(statusFg, 0.18);
   }
 
   if (selected.has("commandCenter")) {
@@ -117,6 +120,7 @@ export function buildChromeColors(
     colors["commandCenter.activeBorder"] = hexWithAlpha(commandFg, 0.3);
     colors["commandCenter.inactiveForeground"] = mixHex(commandFg, commandBg, 0.35);
     colors["commandCenter.inactiveBorder"] = hexWithAlpha(commandFg, 0.12);
+    colors["commandCenter.inactiveBackground"] = mixHex(commandBg, commandFg, 0.06);
   }
 
   return colors;

@@ -13,7 +13,7 @@ Package manager is pnpm (`packageManager: pnpm@12.0.0`). Do not switch to npm or
 | `pnpm run watch` | esbuild watch |
 | `pnpm run package` | Production bundle (also `vscode:prepublish`) |
 
-VS Code tasks (Command Palette → **Run Task**): Watch, Test, Types, Compile, Package.
+VS Code tasks (Command Palette → **Run Task**): Watch, Test, Types, Compile, Package. GitHub Actions runs `pnpm test` and `pnpm run check-types` on `main` and pull requests.
 
 ## Extension Host
 
@@ -30,7 +30,7 @@ Do not apply Workspace Color to this repository folder if you want a clean git t
 - Status bar: `statusBar.*` including remote-item keys
 - Command center: `commandCenter.*`
 
-Modern UI can force some bars transparent. The panel action **Color bars separately** writes `workbench.experimental.modernUI` to `false`.
+Modern UI can force some bars transparent. **Disable Modern UI** in the panel writes `workbench.experimental.modernUI` to `false` and asks to reload. Uncheck it to restore Modern UI.
 
 ## Package a VSIX
 
