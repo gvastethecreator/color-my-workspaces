@@ -4,6 +4,7 @@ import { ALL_CHROME_ELEMENTS } from "./chrome.ts";
 import { STATUS_ICONS } from "./icons.ts";
 import { PALETTE, PALETTE_COLUMNS } from "./palette.ts";
 import { escapeHtml, nonce, type PanelMessage, type PanelState } from "./panelState.ts";
+import { STATUS_ICON_SVG } from "./statusIconSvg.ts";
 
 let panel: vscode.WebviewPanel | undefined;
 
@@ -30,7 +31,7 @@ export function openColorPanel(
   );
 
   const scriptNonce = nonce();
-  panel.webview.html = renderHtml(panel.webview, scriptNonce, getState(), context.extensionUri);
+  panel.webview.html = renderHtml(panel.webview, scriptNonce, getState());
   panel.onDidDispose(() => {
     panel = undefined;
   });
@@ -48,19 +49,12 @@ function renderHtml(
   webview: vscode.Webview,
   scriptNonce: string,
   state: PanelState,
-  extensionUri: vscode.Uri,
 ): string {
-  const codiconCss = webview.asWebviewUri(
-    vscode.Uri.joinPath(extensionUri, "media", "codicons", "codicon.css"),
-  );
-  const codiconFont = webview.asWebviewUri(
-    vscode.Uri.joinPath(extensionUri, "media", "codicons", "codicon.ttf"),
-  );
+  const iconMap = JSON.stringify(STATUS_ICON_SVG).replaceAll("<", "\\u003c");
   const csp = [
     `default-src 'none'`,
     `img-src ${webview.cspSource} data:`,
     `style-src ${webview.cspSource} 'unsafe-inline'`,
-    `font-src ${webview.cspSource}`,
     `script-src 'nonce-${scriptNonce}'`,
   ].join("; ");
 
@@ -85,13 +79,7 @@ function renderHtml(
   <meta http-equiv="Content-Security-Policy" content="${csp}" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Color My Workspaces</title>
-  <link rel="stylesheet" href="${codiconCss}" />
   <style>
-    @font-face {
-      font-family: "codicon";
-      font-display: block;
-      src: url("${codiconFont}") format("truetype");
-    }
     :root { color-scheme: light dark; }
     * { box-sizing: border-box; }
     body {
@@ -165,7 +153,7 @@ function renderHtml(
       width: 100%;
       justify-content: flex-start;
     }
-    .icon-pick .codicon { font-size: 16px; }
+    .icon-pick .status-icon { width: 16px; height: 16px; }
     .icon-pick-id { font-size: 0.85rem; }
     .icon-menu {
       position: absolute;
@@ -193,6 +181,13 @@ function renderHtml(
       color: var(--vscode-foreground);
       background: transparent;
       cursor: pointer;
+    }
+    .icon-option .status-icon { width: 14px; height: 14px; }
+    .status-icon {
+      width: 16px;
+      height: 16px;
+      flex: none;
+      display: block;
     }
     .icon-option:hover,
     .icon-option[aria-current="true"] {
@@ -228,13 +223,18 @@ function renderHtml(
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .preview .status .codicon {
+    .preview .status #statusPreviewIcon {
       flex: none;
       overflow: visible;
-      font-size: 14px;
       margin-right: 6px;
+      display: inline-flex;
+      color: inherit;
     }
-    .preview .status .codicon[hidden] { display: none; }
+    .preview .status #statusPreviewIcon[hidden] { display: none; }
+    .preview .status #statusPreviewIcon .status-icon {
+      width: 14px;
+      height: 14px;
+    }
     .chip-dot {
       width: 8px;
       height: 8px;
@@ -438,7 +438,7 @@ function renderHtml(
               </div>
             </div>
           </div>
-          <div class="status" data-tone="statusBar"><span id="statusPreviewChip" class="chip-dot" ${(state.showStatusBarLabel && state.statusPreviewText) || state.showStatusBarIcon ? "hidden" : ""} style="background:${escapeHtml(state.chipColor)}"></span><span id="statusPreviewIcon" class="codicon codicon-${escapeHtml(state.statusIcon)}" ${state.showStatusBarIcon ? "" : "hidden"} style="color:${escapeHtml(state.statusForeground)}"></span><span id="statusPreviewLabel" ${state.showStatusBarLabel ? "" : "hidden"} style="color:${escapeHtml(state.statusForeground)}">${escapeHtml(state.statusPreviewText)}</span></div>
+          <div class="status" data-tone="statusBar"><span id="statusPreviewChip" class="chip-dot" ${(state.showStatusBarLabel && state.statusPreviewText) || state.showStatusBarIcon ? "hidden" : ""} style="background:${escapeHtml(state.chipColor)}"></span><span id="statusPreviewIcon" ${state.showStatusBarIcon ? "" : "hidden"} style="color:${escapeHtml(state.statusForeground)}"></span><span id="statusPreviewLabel" ${state.showStatusBarLabel ? "" : "hidden"} style="color:${escapeHtml(state.statusForeground)}">${escapeHtml(state.statusPreviewText)}</span></div>
         </div>
       </section>
       <section>
@@ -509,12 +509,12 @@ function renderHtml(
         </label>
         <div class="icon-pick-wrap" id="iconPickWrap">
           <button type="button" class="cmd secondary icon-pick" id="pickIcon" aria-haspopup="listbox" aria-expanded="false" aria-controls="iconMenu" aria-label="Status bar icon" ${state.hasWorkspace ? "" : "disabled"}>
-            <span id="pickIconGlyph" class="codicon codicon-${escapeHtml(state.statusIcon)}" aria-hidden="true"></span>
+            <span id="pickIconGlyph" aria-hidden="true"></span>
             <span id="pickIconId">${escapeHtml(state.statusIcon)}</span>
           </button>
           <div class="icon-menu" id="iconMenu" hidden role="listbox" aria-label="Status bar icons">${STATUS_ICONS.map((id) => {
             const safe = escapeHtml(id);
-            return `<button type="button" class="icon-option" role="option" data-icon="${safe}" title="${safe}" aria-label="${safe}" aria-current="${id === state.statusIcon ? "true" : "false"}"><span class="codicon codicon-${safe}" aria-hidden="true"></span></button>`;
+            return `<button type="button" class="icon-option" role="option" data-icon="${safe}" title="${safe}" aria-label="${safe}" aria-current="${id === state.statusIcon ? "true" : "false"}"></button>`;
           }).join("")}</div>
         </div>
       </div>
@@ -540,6 +540,10 @@ function renderHtml(
   </main>
   <script nonce="${scriptNonce}">
     const vscode = acquireVsCodeApi();
+    const STATUS_ICON_SVG = ${iconMap};
+    function iconMarkup(id) {
+      return STATUS_ICON_SVG[id] || STATUS_ICON_SVG.folder || "";
+    }
     const picker = document.getElementById("picker");
     const hex = document.getElementById("hex");
     const hexError = document.getElementById("hexError");
@@ -736,13 +740,17 @@ function renderHtml(
     }
 
     function setIconPreview(id, show) {
-      pickIconGlyph.className = "codicon codicon-" + id;
+      pickIconGlyph.innerHTML = iconMarkup(id);
       pickIconId.textContent = id;
-      statusPreviewIcon.className = "codicon codicon-" + id;
+      statusPreviewIcon.innerHTML = iconMarkup(id);
       statusPreviewIcon.hidden = !show;
       for (const option of iconMenu.querySelectorAll(".icon-option")) {
         option.setAttribute("aria-current", option.dataset.icon === id ? "true" : "false");
       }
+    }
+
+    for (const option of iconMenu.querySelectorAll(".icon-option")) {
+      option.innerHTML = iconMarkup(option.dataset.icon);
     }
 
     function setIconMenuOpen(open) {
