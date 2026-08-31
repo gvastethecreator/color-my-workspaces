@@ -1,6 +1,7 @@
 .vscode/**
 .vscode-test/**
 src/**
+scripts/**
 node_modules/**
 test-workspace/**
 docs/**
@@ -16,5 +17,10 @@ tsconfig.json
 esbuild.js
 AGENTS.md
 CLAUDE.md
+SECURITY.md
 **/*.map
 **/*.ts
+media/*.svg
+media/icon-512.png
+media/icon-source.png
+media/preview-source.png

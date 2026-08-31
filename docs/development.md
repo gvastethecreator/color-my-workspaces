@@ -12,6 +12,8 @@ Package manager is pnpm (`packageManager: pnpm@12.0.0`). Do not switch to npm or
 | `pnpm run compile` | Types then esbuild → `dist/extension.js` |
 | `pnpm run watch` | esbuild watch |
 | `pnpm run package` | Production bundle (also `vscode:prepublish`) |
+| `pnpm run icons` | Rebuild `media/icon.png` (128), `icon-512.png`, and social preview from `media/icon.svg` |
+| `pnpm run vsix` | Production bundle + `vsce package --no-dependencies` |
 
 VS Code tasks (Command Palette → **Run Task**): Watch, Test, Types, Compile, Package. GitHub Actions runs `pnpm test` and `pnpm run check-types` on `main` and pull requests.
 
@@ -34,4 +36,8 @@ Modern UI can force some bars transparent. **Disable Modern UI** in the panel wr
 
 ## Package a VSIX
 
-`pnpm run package` then `pnpm exec vsce package` if `@vscode/vsce` is installed. Output `*.vsix` is gitignored. `.vscodeignore` keeps source maps, tests, docs, and agent files out of the VSIX.
+```bash
+pnpm run vsix
+```
+
+Output `*.vsix` is gitignored. `.vscodeignore` keeps source maps, tests, docs, SVG sources, and agent files out of the VSIX. Full Marketplace steps (publisher, PAT / Entra ID, Open VSX): [publishing](publishing.md).

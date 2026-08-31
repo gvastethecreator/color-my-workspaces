@@ -1,33 +1,25 @@
+
+
+<img src="media/social-preview.png" alt="Workspace Color" width="100%" />
+
+
 # Workspace Color
 
-Color the VS Code or Cursor title bar, activity bar, status bar, and command center so each folder is easy to tell apart.
+>  **Give each VS Code or Cursor folder its own color on the title bar, activity bar, status bar, and command center.**
+## Getting started
 
-This extension writes `workbench.colorCustomizations` in the workspace. It cannot color the Windows taskbar.
+1) Install **Workspace Color** from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gvastethecreator.workspace-color)
+2) Open a folder, and click the project name on the left of the status bar to change the color.
 
-## Quick start
 
-Install the VSIX, open a folder, then click the project name on the left of the status bar.
+<img src="media/preview.png" alt="Settings panel" width="100%" />
 
-In the panel you can pick a color, name the workspace, and choose which bars to paint. If bars stay transparent, turn on **Disable Modern UI** and reload.
 
-F5 (`Run Extension`) opens `test-workspace/` so test colors do not land in this repo. See [development](docs/development.md).
 
-## Commands
 
-- **Change Color...** — also runs from the status bar
-- **Open Workspace Color Settings**
-- **Pick Color** / **Apply Color from Folder** / **Surprise Me**
-- **Clear Color** — drops keys this extension added; leaves other customizations
-- **Reset Settings** — restores Workspace Color options to defaults and clears the color
-
-## Settings
-
-- `workspaceColor.color` — hex. Empty uses a color from the folder name
-- `workspaceColor.label` / `workspaceColor.showStatusBarLabel` — status bar name
-- `workspaceColor.icon` / `workspaceColor.showStatusBarIcon` — Codicon on the status bar (`folder`, `rocket`, …). A color pill is shown when the name and icon are both hidden
-- `workspaceColor.titleBar` / `activityBar` / `statusBar` / `commandCenter`
-- `workspaceColor.stepped` — slightly different shade on each bar
-
-## License
-
-MIT. See [LICENSE](LICENSE).
+<p align="right">
+  <a href="https://github.com/gvastethecreator/vscode-workspace-color/actions/workflows/ci.yml"><img alt="CI status" src="https://shieldcn.dev/github/ci/gvastethecreator/vscode-workspace-color.svg?workflow=CI&branch=main&variant=secondary&size=xs" /></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=gvastethecreator.workspace-color"><img alt="VS Code Marketplace" src="https://shieldcn.dev/vscode/installs/gvastethecreator/workspace-color.svg?variant=secondary&size=xs" /></a>
+  <a href="https://github.com/gvastethecreator/vscode-workspace-color/stargazers"><img alt="GitHub stars" src="https://shieldcn.dev/github/stars/gvastethecreator/vscode-workspace-color.svg?variant=secondary&size=xs" /></a>
+  <a href="LICENSE"><img alt="MIT license" src="https://shieldcn.dev/github/license/gvastethecreator/vscode-workspace-color.svg?variant=secondary&size=xs" /></a>
+</p>
