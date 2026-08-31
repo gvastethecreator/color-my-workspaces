@@ -51,6 +51,22 @@
       "args": ["run", "package"],
       "group": "build",
       "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "🎁 VSIX",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "vsix"],
+      "group": "build",
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "🎨 Icons",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "icons"],
+      "group": "none",
+      "problemMatcher": []
     }
   ]
 }

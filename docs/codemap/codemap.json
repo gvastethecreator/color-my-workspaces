@@ -1,0 +1,248 @@
+{
+  "generated_at": "2026-08-31T02:25:49Z",
+  "generated_from_commit": "4e6beb6cfa1531d73a494f1752b95e38847b98de",
+  "scope": [
+    "."
+  ],
+  "nodes": [
+    {
+      "id": "esbuild",
+      "path": "esbuild.js",
+      "type": "interface",
+      "boundary": "Esbuild",
+      "entrypoints": [
+        "esbuild.js:main"
+      ],
+      "tests": [],
+      "callers": [
+        {
+          "id": "repository",
+          "type": "calls"
+        }
+      ],
+      "callees": [
+        {
+          "id": "external-dependencies",
+          "type": "imports"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "esbuild.js",
+            "symbol": "main"
+          }
+        ]
+      }
+    },
+    {
+      "id": "external-dependencies",
+      "path": "esbuild.js",
+      "type": "external",
+      "boundary": "External",
+      "entrypoints": [
+        "esbuild.js:esbuild"
+      ],
+      "tests": [],
+      "callers": [
+        {
+          "id": "esbuild",
+          "type": "imports"
+        },
+        {
+          "id": "scripts",
+          "type": "imports"
+        },
+        {
+          "id": "src",
+          "type": "imports"
+        }
+      ],
+      "callees": [],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "esbuild.js",
+            "symbol": "esbuild"
+          }
+        ]
+      }
+    },
+    {
+      "id": "repository",
+      "path": "package.json",
+      "type": "module",
+      "boundary": "Repository",
+      "entrypoints": [
+        "package.json:{"
+      ],
+      "tests": [],
+      "callers": [],
+      "callees": [
+        {
+          "id": "esbuild",
+          "type": "calls"
+        },
+        {
+          "id": "scripts",
+          "type": "calls"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "package.json",
+            "symbol": "{"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scripts",
+      "path": "scripts",
+      "type": "service",
+      "boundary": "Scripts",
+      "entrypoints": [
+        "scripts/render-icons.mjs:roundCorners"
+      ],
+      "tests": [],
+      "callers": [
+        {
+          "id": "repository",
+          "type": "calls"
+        }
+      ],
+      "callees": [
+        {
+          "id": "external-dependencies",
+          "type": "imports"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "scripts/render-icons.mjs",
+            "symbol": "roundCorners"
+          }
+        ]
+      }
+    },
+    {
+      "id": "src",
+      "path": "src",
+      "type": "module",
+      "boundary": "Src",
+      "entrypoints": [
+        "src/chrome.ts:flagsToElements"
+      ],
+      "tests": [
+        "src/chrome.test.ts",
+        "src/color.test.ts",
+        "src/icons.test.ts",
+        "src/identity.test.ts",
+        "src/merge.test.ts"
+      ],
+      "callers": [],
+      "callees": [
+        {
+          "id": "external-dependencies",
+          "type": "imports"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/chrome.ts",
+            "symbol": "flagsToElements"
+          }
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "esbuild",
+      "to": "external-dependencies",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "esbuild.js",
+            "symbol": "esbuild"
+          }
+        ]
+      }
+    },
+    {
+      "from": "repository",
+      "to": "esbuild",
+      "type": "calls",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "package.json",
+            "symbol": "esbuild.js"
+          }
+        ]
+      }
+    },
+    {
+      "from": "repository",
+      "to": "scripts",
+      "type": "calls",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "package.json",
+            "symbol": "scripts/render-icons.mjs"
+          }
+        ]
+      }
+    },
+    {
+      "from": "scripts",
+      "to": "external-dependencies",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "scripts/render-icons.mjs",
+            "symbol": "sharp"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src",
+      "to": "external-dependencies",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/extension.ts",
+            "symbol": "vscode"
+          },
+          {
+            "path": "src/panel.ts",
+            "symbol": "vscode"
+          },
+          {
+            "path": "src/quickActions.ts",
+            "symbol": "vscode"
+          }
+        ]
+      }
+    }
+  ],
+  "flows": []
+}
