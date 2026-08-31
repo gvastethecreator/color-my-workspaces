@@ -16,8 +16,8 @@
 
 
 <p align="right">
-  <a href="https://github.com/gvastethecreator/color-my-workspaces/actions/workflows/ci.yml"><img alt="CI status" src="https://shieldcn.dev/github/ci/gvastethecreator/color-my-workspaces.png?workflow=CI&branch=main&variant=secondary&size=xs" /></a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=gvastethecreator.color-my-workspaces"><img alt="VS Code Marketplace" src="https://shieldcn.dev/vscode/installs/gvastethecreator/color-my-workspaces.png?variant=secondary&size=xs" /></a>
+  <a href="https://github.com/gvastethecreator/color-my-workspaces/actions/workflows/ci.yml"><img alt="CI status" src="https://shieldcn.dev/github/ci/gvastethecreator/color-my-workspaces.png?workflow=ci.yml&branch=main&variant=secondary&size=xs" /></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=gvastethecreator.color-my-workspaces"><img alt="VS Code Marketplace" src="https://shieldcn.dev/badge/VS_Code-Marketplace-007ACC.png?logo=visualstudiocode&variant=branded&size=xs" /></a>
   <a href="https://github.com/gvastethecreator/color-my-workspaces/stargazers"><img alt="GitHub stars" src="https://shieldcn.dev/github/stars/gvastethecreator/color-my-workspaces.png?variant=secondary&size=xs" /></a>
   <a href="LICENSE"><img alt="MIT license" src="https://shieldcn.dev/github/license/gvastethecreator/color-my-workspaces.png?variant=secondary&size=xs" /></a>
 </p>
