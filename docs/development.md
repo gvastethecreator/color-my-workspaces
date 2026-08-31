@@ -32,6 +32,6 @@ Do not apply Color My Workspaces to this repository folder if you want a clean g
 - Status bar: `statusBar.*` including remote-item keys
 - Command center: `commandCenter.*`
 
-Modern UI can force some bars transparent. **Disable Modern UI** in the panel writes `workbench.experimental.modernUI` to `false` and asks to reload.
+Modern UI can force some bars transparent. With Modern UI on, bar borders (`titleBar.border`, `activityBar.border`, `statusBar.border`) are omitted so they do not split the shell. **Disable Modern UI** in the panel writes `workbench.experimental.modernUI` to `false` and asks to reload.
 
 Marketplace packaging and publish: [publishing](publishing.md).

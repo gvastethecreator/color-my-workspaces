@@ -56,6 +56,18 @@ describe("buildChromeColors", () => {
     assert.equal(typeof colors["activityBar.border"], "string");
     assert.equal(typeof colors["commandCenter.inactiveBackground"], "string");
   });
+
+  it("omits shell bar borders in Modern UI", () => {
+    const colors = buildChromeColors("#1f4b6e", ALL_CHROME_ELEMENTS, { modernUi: true });
+    assert.equal(colors["titleBar.border"], undefined);
+    assert.equal(colors["activityBar.border"], undefined);
+    assert.equal(colors["statusBar.border"], undefined);
+    assert.equal(typeof colors["titleBar.activeBackground"], "string");
+    assert.equal(typeof colors["commandCenter.border"], "string");
+    assert.equal(MANAGED_CHROME_KEYS.includes("titleBar.border"), true);
+    assert.equal(MANAGED_CHROME_KEYS.includes("activityBar.border"), true);
+    assert.equal(MANAGED_CHROME_KEYS.includes("statusBar.border"), true);
+  });
 });
 
 describe("flagsToElements", () => {

@@ -19,6 +19,7 @@ export type ChromeFlags = Record<ChromeElement, boolean>;
 
 export type ChromeStyle = {
   stepped?: boolean;
+  modernUi?: boolean;
 };
 
 const STEP_MIX: Record<ChromeElement, { black: number; white: number }> = {
@@ -63,6 +64,7 @@ export function buildChromeColors(
   style: ChromeStyle = {},
 ): Record<string, string> {
   const stepped = style.stepped === true;
+  const modernUi = style.modernUi === true;
   const selected = new Set(elements);
   const colors: Record<string, string> = {};
 
@@ -89,7 +91,9 @@ export function buildChromeColors(
     colors["titleBar.activeForeground"] = titleFg;
     colors["titleBar.inactiveBackground"] = inactiveBg;
     colors["titleBar.inactiveForeground"] = inactiveFg;
-    colors["titleBar.border"] = hexWithAlpha(titleFg, 0.18);
+    if (!modernUi) {
+      colors["titleBar.border"] = hexWithAlpha(titleFg, 0.18);
+    }
     colors["sash.hoverBorder"] = titleBg;
   }
 
@@ -106,7 +110,9 @@ export function buildChromeColors(
     colors["activityBarTop.inactiveForeground"] = hexWithAlpha(activityFg, 0.62);
     colors["activityBarTop.activeBorder"] = badge;
     colors["activityBarTop.activeBackground"] = mixHex(activityBg, activityFg, 0.12);
-    colors["activityBar.border"] = hexWithAlpha(activityFg, 0.18);
+    if (!modernUi) {
+      colors["activityBar.border"] = hexWithAlpha(activityFg, 0.18);
+    }
   }
 
   if (selected.has("statusBar")) {
@@ -118,7 +124,9 @@ export function buildChromeColors(
     colors["statusBar.debuggingForeground"] = debugFg;
     colors["statusBarItem.remoteBackground"] = statusBg;
     colors["statusBarItem.remoteForeground"] = statusFg;
-    colors["statusBar.border"] = hexWithAlpha(statusFg, 0.18);
+    if (!modernUi) {
+      colors["statusBar.border"] = hexWithAlpha(statusFg, 0.18);
+    }
   }
 
   if (selected.has("commandCenter")) {

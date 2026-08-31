@@ -1,7 +1,7 @@
 {
-  "source_commit": "4e6beb6cfa1531d73a494f1752b95e38847b98de",
+  "source_commit": "935b6e19bae256b83b1fc43d69cb377d3da0aa76",
   "working_tree_dirty": true,
-  "generated_at": "2026-08-31T02:25:49Z",
+  "generated_at": "2026-08-31T08:00:00Z",
   "scanned_scope": [
     "."
   ],
@@ -35,25 +35,25 @@
       "id": ".",
       "path": ".",
       "file_count": 13,
-      "fingerprint": "68d81c4a8cb7273fcf799c497138ef35a334eba2761f6920639251b3fc190a30"
+      "fingerprint": "b042a78dd2bc5fc10e865feada0b4d2a5d277b3835dc026810dbdb9d6e8cdd71"
     },
     {
       "id": ".github",
       "path": ".github",
       "file_count": 1,
-      "fingerprint": "a1286cd4c1e8df8cb77051d5a80e3c61a9002d014291b3597a245d1539243c48"
+      "fingerprint": "0ff6a287b36eb682c3cfb7d63bd887f3ec3dc4f9e80c5d9ed6c129ccfb849d48"
     },
     {
       "id": "docs",
       "path": "docs",
       "file_count": 5,
-      "fingerprint": "e931dc5b6d789a29171d4382774c35cdbaccbb7db20d8e8fad9c633c24025688"
+      "fingerprint": "d6bb1c7391f5dc9a1262c5d40504af307eb9bae44d6dceecc9bdc609e1164c97"
     },
     {
       "id": "media",
       "path": "media",
-      "file_count": 8,
-      "fingerprint": "7d2218482d852341387f061aaa5044ea78b5f342d887e54abf4c070c217ba76f"
+      "file_count": 6,
+      "fingerprint": "acbec245fafb8d74f51089d4d5951e1ba283c5156934fed2d317038efa1dafb9"
     },
     {
       "id": "scripts",
@@ -64,8 +64,8 @@
     {
       "id": "src",
       "path": "src",
-      "file_count": 19,
-      "fingerprint": "e5b47ab0fefc87e0d448be774be235b9d69965853219c82cef52b900a3f390ea"
+      "file_count": 20,
+      "fingerprint": "0dc65fbc8fd890abbe30c2362f52a4b32f2eb6bb18adebac8fdddaed74db4796"
     },
     {
       "id": "test-workspace",

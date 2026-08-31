@@ -2,6 +2,13 @@
 
 All notable changes to Color My Workspaces are documented in this file.
 
+## [0.0.34] - 2026-08-31
+
+### Changed
+
+- Skip title bar, activity bar, and status bar borders when Modern UI is on so the window shell stays one surface
+- Tighten the README header, badges, and Getting started section
+
 ## [0.0.33] - 2026-08-31
 
 ### Changed

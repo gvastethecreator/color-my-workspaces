@@ -550,7 +550,7 @@ async function paint(next: Record<string, string> | undefined): Promise<boolean>
 function buildCurrentChrome(color: string): Record<string, string> {
   const flags = readFlags();
   const stepped = vscode.workspace.getConfiguration("workspaceColor").get<boolean>("stepped", true);
-  return buildChromeColors(color, flagsToElements(flags), { stepped });
+  return buildChromeColors(color, flagsToElements(flags), { stepped, modernUi: isModernUi() });
 }
 
 function readFlags(): ChromeFlags {

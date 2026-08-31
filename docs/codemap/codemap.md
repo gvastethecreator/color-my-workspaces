@@ -1,7 +1,7 @@
 # Code map · vscode-workspace-color
 
-generated: 2026-08-31T02:25:49Z
-commit: 4e6beb6cfa15
+generated: 2026-08-31T08:00:00Z
+commit: 935b6e19bae2
 scope: .
 
 counts: 5 nodes · 5 edges · 0 flows · 0 unknown
