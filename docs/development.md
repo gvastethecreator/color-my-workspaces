@@ -1,6 +1,6 @@
 # Development
 
-Package manager is pnpm (`packageManager: pnpm@12.0.0`). Do not switch to npm or yarn.
+Package manager is pnpm (`packageManager: pnpm@12.1.0`). Do not switch to npm or yarn.
 
 ## Scripts
 

@@ -2,6 +2,12 @@
 
 All notable changes to Color My Workspaces are documented in this file.
 
+## [0.0.3] - 2026-08-30
+
+### Changed
+
+- TypeScript 7, latest toolchain (`pnpm` 12.1, `@types/vscode` / `engines.vscode` 1.134)
+
 ## [0.0.2] - 2026-08-30
 
 ### Changed

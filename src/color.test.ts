@@ -94,7 +94,7 @@ describe("color math", () => {
   it("reads hsl from hex", () => {
     const hsl = hexToHsl("#336699");
     assert.ok(hsl);
-    assert.equal(Math.round(hsl.h), 210);
+    assert.equal(Math.round(hsl!.h), 210);
   });
 
   it("leaves color unchanged at contrast 50", () => {

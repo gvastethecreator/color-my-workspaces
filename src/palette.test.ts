@@ -26,7 +26,7 @@ describe("PALETTE", () => {
     const hues = PALETTE.map((item) => {
       const hsl = hexToHsl(item.color);
       assert.ok(hsl);
-      return hsl.h;
+      return hsl!.h;
     });
     for (let i = 1; i < hues.length; i++) {
       assert.ok(hues[i]! >= hues[i - 1]!, `${PALETTE[i]!.label} should follow ${PALETTE[i - 1]!.label}`);
