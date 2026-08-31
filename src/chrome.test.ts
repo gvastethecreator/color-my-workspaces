@@ -6,6 +6,7 @@ import {
   elementBackground,
   flagsToElements,
   MANAGED_CHROME_KEYS,
+  resolveActivityBarFlag,
 } from "./chrome.ts";
 
 describe("buildChromeColors", () => {
@@ -68,6 +69,24 @@ describe("flagsToElements", () => {
       }),
       ["titleBar", "statusBar"],
     );
+  });
+});
+
+describe("resolveActivityBarFlag", () => {
+  it("turns off the top and bottom activity bar when unset", () => {
+    assert.equal(resolveActivityBarFlag(undefined, "top"), false);
+    assert.equal(resolveActivityBarFlag(undefined, "bottom"), false);
+  });
+
+  it("keeps the side rail on when unset", () => {
+    assert.equal(resolveActivityBarFlag(undefined, "default"), true);
+    assert.equal(resolveActivityBarFlag(undefined, undefined), true);
+    assert.equal(resolveActivityBarFlag(undefined, "hidden"), true);
+  });
+
+  it("keeps an explicit choice", () => {
+    assert.equal(resolveActivityBarFlag(true, "top"), true);
+    assert.equal(resolveActivityBarFlag(false, "default"), false);
   });
 });
 

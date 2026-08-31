@@ -2,6 +2,16 @@
 
 All notable changes to Color My Workspaces are documented in this file.
 
+## [0.0.31] - 2026-08-31
+
+### Added
+
+- Status bar click can open Quick settings or Full settings (Quick settings by default)
+
+### Changed
+
+- Activity bar coloring is off by default when the activity bar is on the top or bottom, and on when it is on the side
+
 ## [0.0.3] - 2026-08-30
 
 ### Changed

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { chromeTones, chromeCompatibilityNote, escapeHtml } from "./panelState.ts";
+import { chromeTones, chromeCompatibilityNote, escapeHtml, parseStatusBarClick } from "./panelState.ts";
 
 describe("chromeTones", () => {
   it("returns a tone per bar", () => {
@@ -27,5 +27,17 @@ describe("chromeCompatibilityNote", () => {
     const note = chromeCompatibilityNote({ modernUi: true });
     assert.equal(note.includes("title bar color"), true);
     assert.equal(note.includes("Disable Modern UI"), true);
+  });
+});
+
+describe("parseStatusBarClick", () => {
+  it("defaults to quick settings", () => {
+    assert.equal(parseStatusBarClick(undefined), "quick");
+    assert.equal(parseStatusBarClick("quick"), "quick");
+    assert.equal(parseStatusBarClick("nope"), "quick");
+  });
+
+  it("accepts full settings", () => {
+    assert.equal(parseStatusBarClick("full"), "full");
   });
 });

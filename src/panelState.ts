@@ -2,6 +2,8 @@ import type { ChromeElement, ChromeFlags } from "./chrome.ts";
 import { ALL_CHROME_ELEMENTS, elementBackground } from "./chrome.ts";
 import type { PaletteSwatch } from "./palette.ts";
 
+export type StatusBarClick = "quick" | "full";
+
 export type PanelState = {
   projectName: string;
   derivedName: string;
@@ -19,6 +21,7 @@ export type PanelState = {
   showStatusBarLabel: boolean;
   showStatusBarIcon: boolean;
   statusIcon: string;
+  statusBarClick: StatusBarClick;
   palette: readonly PaletteSwatch[];
 };
 
@@ -28,6 +31,7 @@ export type PanelMessage =
   | { type: "setLabel"; label: string }
   | { type: "setShowStatusBarLabel"; enabled: boolean }
   | { type: "setShowStatusBarIcon"; enabled: boolean }
+  | { type: "setStatusBarClick"; target: StatusBarClick }
   | { type: "setIcon"; icon: string }
   | { type: "setFlag"; element: ChromeElement; enabled: boolean }
   | { type: "setStepped"; enabled: boolean }
@@ -38,6 +42,10 @@ export type PanelMessage =
   | { type: "copyHex"; color: string }
   | { type: "setSeparateBars"; enabled: boolean }
   | { type: "openUrl"; url: string };
+
+export function parseStatusBarClick(raw: unknown): StatusBarClick {
+  return raw === "full" ? "full" : "quick";
+}
 
 export function chromeCompatibilityNote(input: {
   modernUi: boolean;

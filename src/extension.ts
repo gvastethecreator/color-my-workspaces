@@ -4,6 +4,7 @@ import {
   buildChromeColors,
   flagsToElements,
   MANAGED_CHROME_KEYS,
+  resolveActivityBarFlag,
   type ChromeFlags,
 } from "./chrome.ts";
 import { colorFromIdentity, contrastForeground, normalizeHex, randomWorkspaceColor } from "./color.ts";
@@ -12,7 +13,7 @@ import { projectDisplayName, workspaceIdentity } from "./identity.ts";
 import { mergeManagedColors } from "./merge.ts";
 import { PALETTE } from "./palette.ts";
 import { openColorPanel, postPanelState } from "./panel.ts";
-import { chromeTones, chromeCompatibilityNote, type PanelMessage, type PanelState } from "./panelState.ts";
+import { chromeTones, chromeCompatibilityNote, parseStatusBarClick, type PanelMessage, type PanelState } from "./panelState.ts";
 import { pickCodicon, pickPaletteColor, pickStatusAction } from "./quickActions.ts";
 import { formatStatusBarItem, formatStatusBarText, STATUS_CHIP_TEXT, statusBarTooltip, statusChipColor } from "./statusDisplay.ts";
 
@@ -154,6 +155,14 @@ async function handlePanelMessage(
         icon: message.enabled ? (currentStatusIcon() ?? DEFAULT_STATUS_ICON) : undefined,
       });
       postPanelState(panelState(context, { showIcon: message.enabled }));
+      return;
+    case "setStatusBarClick":
+      if (!requireWorkspace()) {
+        return;
+      }
+      await persistStatusBarClick(message.target);
+      updateStatusBar(context, status);
+      postPanelState(panelState(context));
       return;
     case "setIcon":
       await applyStatusIcon(context, status, message.icon);
@@ -327,6 +336,7 @@ const WORKSPACE_COLOR_SETTING_KEYS = [
   "showStatusBarLabel",
   "icon",
   "showStatusBarIcon",
+  "statusBarClick",
   "stepped",
   "titleBar",
   "activityBar",
@@ -417,6 +427,12 @@ async function persistShowStatusBarIcon(enabled: boolean): Promise<void> {
   if (enabled && !currentStatusIcon()) {
     await persistIcon(DEFAULT_STATUS_ICON);
   }
+}
+
+async function persistStatusBarClick(raw: string): Promise<void> {
+  await vscode.workspace
+    .getConfiguration("workspaceColor")
+    .update("statusBarClick", parseStatusBarClick(raw), TARGET);
 }
 
 async function applyStatusIcon(
@@ -541,10 +557,18 @@ function readFlags(): ChromeFlags {
   const cfg = vscode.workspace.getConfiguration("workspaceColor");
   return {
     titleBar: cfg.get("titleBar", true),
-    activityBar: cfg.get("activityBar", true),
+    activityBar: resolveActivityBarFlag(
+      explicitSetting("activityBar"),
+      vscode.workspace.getConfiguration("workbench").get<string>("activityBar.location"),
+    ),
     statusBar: cfg.get("statusBar", true),
     commandCenter: cfg.get("commandCenter", true),
   };
+}
+
+function explicitSetting(key: string): boolean | undefined {
+  const inspect = vscode.workspace.getConfiguration("workspaceColor").inspect<boolean>(key);
+  return inspect?.workspaceFolderValue ?? inspect?.workspaceValue ?? inspect?.globalValue;
 }
 
 function currentSavedColor(): string | undefined {
@@ -601,6 +625,14 @@ function showStatusBarIcon(): boolean {
   return vscode.workspace.getConfiguration("workspaceColor").get("showStatusBarIcon", false);
 }
 
+function statusBarClickCommand(): string {
+  return statusBarClickTarget() === "full" ? "workspaceColor.openPanel" : "workspaceColor.quickActions";
+}
+
+function statusBarClickTarget(): "quick" | "full" {
+  return parseStatusBarClick(vscode.workspace.getConfiguration("workspaceColor").get("statusBarClick"));
+}
+
 function currentStatusIcon(): string | undefined {
   return parseCodiconId(vscode.workspace.getConfiguration("workspaceColor").get<string>("icon"));
 }
@@ -640,6 +672,7 @@ function panelState(
     showStatusBarLabel: showName,
     showStatusBarIcon: showIcon,
     statusIcon: overrides.icon ?? currentStatusIcon() ?? DEFAULT_STATUS_ICON,
+    statusBarClick: statusBarClickTarget(),
     palette: PALETTE,
   };
 }
@@ -662,6 +695,9 @@ function updateStatusBar(
   const flags = readFlags();
   const applied = context.workspaceState.get(DISABLED_KEY) !== true;
   const tooltip = statusBarTooltip({ name: currentProjectName() ?? "Workspace", color });
+  const command = statusBarClickCommand();
+  status.chip.command = command;
+  status.label.command = command;
   if (text) {
     status.chip.hide();
     status.label.text = text;

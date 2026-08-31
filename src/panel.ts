@@ -134,7 +134,7 @@ function renderHtml(
     input:disabled { cursor: not-allowed; }
     .field { display: grid; gap: 6px; }
     .field > span { color: var(--vscode-descriptionForeground); }
-    input[type="text"] {
+    input[type="text"], select {
       width: 100%;
       min-width: 0;
       padding: 6px 8px;
@@ -142,6 +142,11 @@ function renderHtml(
       background: var(--vscode-input-background);
       border: 1px solid var(--vscode-input-border, var(--vscode-widget-border));
       border-radius: 4px;
+    }
+    select {
+      color: var(--vscode-dropdown-foreground);
+      background: var(--vscode-dropdown-background);
+      border-color: var(--vscode-dropdown-border, var(--vscode-widget-border));
     }
     .label-row {
       display: flex;
@@ -151,7 +156,7 @@ function renderHtml(
     }
     .label-row + .label-row { margin-top: 6px; }
     .label-row .option { flex: none; }
-    .label-row input[type="text"] { flex: 1; min-width: 12rem; }
+    .label-row input[type="text"], .label-row select { flex: 1; min-width: 12rem; }
     .icon-pick-wrap { position: relative; flex: 1; min-width: 8rem; }
     .icon-pick {
       display: inline-flex;
@@ -513,6 +518,15 @@ function renderHtml(
           }).join("")}</div>
         </div>
       </div>
+      <div class="label-row">
+        <label class="option" title="What a click on the status bar name or color pill opens." for="statusBarClick">
+          <span>On click</span>
+        </label>
+        <select id="statusBarClick" aria-label="Status bar click">
+          <option value="quick" ${state.statusBarClick === "full" ? "" : "selected"}>Quick settings</option>
+          <option value="full" ${state.statusBarClick === "full" ? "selected" : ""}>Full settings</option>
+        </select>
+      </div>
     </section>
     <div class="footer">
       <button type="button" class="cmd secondary" data-action="resetSettings" id="resetSettings" ${state.hasWorkspace ? "" : "disabled"}>Reset settings</button>
@@ -535,6 +549,7 @@ function renderHtml(
     const label = document.getElementById("label");
     const showLabel = document.getElementById("showLabel");
     const showIcon = document.getElementById("showIcon");
+    const statusBarClick = document.getElementById("statusBarClick");
     const pickIcon = document.getElementById("pickIcon");
     const pickIconGlyph = document.getElementById("pickIconGlyph");
     const pickIconId = document.getElementById("pickIconId");
@@ -677,6 +692,7 @@ function renderHtml(
       }
       showLabel.checked = state.showStatusBarLabel;
       showIcon.checked = state.showStatusBarIcon;
+      if (document.activeElement !== statusBarClick) statusBarClick.value = state.statusBarClick === "full" ? "full" : "quick";
       hasWorkspace = Boolean(state.hasWorkspace);
       applyStatusPreview(state.showStatusBarLabel, state.showStatusBarIcon);
       stepped.checked = state.stepped;
@@ -789,6 +805,9 @@ function renderHtml(
       applyStatusPreview(showLabel.checked, showIcon.checked);
       statusPreviewIcon.hidden = !showIcon.checked;
       vscode.postMessage({ type: "setShowStatusBarIcon", enabled: showIcon.checked });
+    });
+    statusBarClick.addEventListener("change", () => {
+      vscode.postMessage({ type: "setStatusBarClick", target: statusBarClick.value });
     });
     pickIcon.addEventListener("click", (event) => {
       event.stopPropagation();

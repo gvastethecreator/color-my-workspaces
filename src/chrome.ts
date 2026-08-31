@@ -32,6 +32,16 @@ export function flagsToElements(flags: ChromeFlags): ChromeElement[] {
   return ALL_CHROME_ELEMENTS.filter((element) => flags[element]);
 }
 
+export function resolveActivityBarFlag(
+  explicit: boolean | undefined,
+  location: string | undefined,
+): boolean {
+  if (explicit !== undefined) {
+    return explicit;
+  }
+  return location !== "top" && location !== "bottom";
+}
+
 export function elementBackground(baseHex: string, element: ChromeElement, stepped: boolean): string {
   if (!stepped) {
     return baseHex;

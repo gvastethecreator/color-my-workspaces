@@ -2,7 +2,7 @@
   "name": "color-my-workspaces",
   "displayName": "Color My Workspaces",
   "description": "Color the VS Code title bar, activity bar, and status bar per workspace.",
-  "version": "0.0.3",
+  "version": "0.0.31",
   "packageManager": "pnpm@12.1.0",
   "publisher": "gvastethecreator",
   "author": {
@@ -129,12 +129,22 @@
         "workspaceColor.activityBar": {
           "type": "boolean",
           "default": true,
-          "description": "Color the activity bar on the side (activityBar) and on the top or bottom (activityBarTop)."
+          "description": "Color the activity bar. When unset, this is on for the side rail (left or right) and off when the activity bar is on the top or bottom."
         },
         "workspaceColor.statusBar": {
           "type": "boolean",
           "default": true,
           "description": "Color the status bar."
+        },
+        "workspaceColor.statusBarClick": {
+          "type": "string",
+          "enum": ["quick", "full"],
+          "enumDescriptions": [
+            "Open the quick pick from the status bar.",
+            "Open the Color My Workspaces settings panel."
+          ],
+          "default": "quick",
+          "description": "What a click on the status bar name or color pill opens."
         },
         "workspaceColor.commandCenter": {
           "type": "boolean",
