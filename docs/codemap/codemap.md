@@ -1,4 +1,4 @@
-# Code map · vscode-workspace-color
+# Code map · color-my-workspaces
 
 generated: 2026-08-30T20:30:00Z
 commit: 9b391ac4ea3b

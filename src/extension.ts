@@ -19,7 +19,7 @@ import { formatStatusBarItem, formatStatusPreviewText, STATUS_CHIP_TEXT, statusB
 const DISABLED_KEY = "workspaceColor.disabled";
 const PREVIOUS_COLOR_KEY = "workspaceColor.previousColor";
 const WELCOME_KEY = "workspaceColor.didShowWelcome";
-const SUPPORT_URL = "https://github.com/gvastethecreator/vscode-workspace-color";
+const SUPPORT_URL = "https://github.com/gvastethecreator/color-my-workspaces";
 const TARGET = vscode.ConfigurationTarget.Workspace;
 const MODERN_UI_SETTING = "experimental.modernUI";
 // Git/SCM uses 10000. Remote uses +Infinity and stays first.
@@ -40,7 +40,7 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.StatusBarAlignment.Left,
     STATUS_CHIP_PRIORITY,
   );
-  chip.name = "Workspace Color";
+  chip.name = "Color My Workspaces";
   chip.command = "workspaceColor.quickActions";
   chip.text = STATUS_CHIP_TEXT;
   chip.tooltip = "Workspace color";
@@ -49,7 +49,7 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.StatusBarAlignment.Left,
     STATUS_LABEL_PRIORITY,
   );
-  label.name = "Workspace Color";
+  label.name = "Color My Workspaces";
   label.command = "workspaceColor.quickActions";
   label.tooltip = "Workspace color";
   const status: StatusItems = { chip, label };
@@ -453,7 +453,7 @@ async function maybeShowWelcome(context: vscode.ExtensionContext): Promise<void>
   }
   welcomeQueued = true;
   await context.globalState.update(WELCOME_KEY, true);
-  const open = "Open Workspace Color Settings";
+  const open = "Open Color My Workspaces Settings";
   const choice = await vscode.window.showInformationMessage(
     "This workspace is colored. Click the project name in the status bar to change it.",
     open,

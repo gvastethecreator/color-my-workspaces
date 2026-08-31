@@ -1,6 +1,6 @@
 # Publishing to the VS Code Marketplace
 
-This guide covers packaging Workspace Color and publishing it under the `gvastethecreator` publisher.
+This guide covers packaging Color My Workspaces (`color-my-workspaces`) and publishing it under the `gvastethecreator` publisher.
 
 ## Checklist before first publish
 
@@ -38,7 +38,7 @@ The extension is bundled with esbuild, so there are no runtime `dependencies`. U
 pnpm run vsix
 ```
 
-That runs the production build, then `vsce package --no-dependencies`. Output: `workspace-color-<version>.vsix` (gitignored).
+That runs the production build, then `vsce package --no-dependencies`. Output: `color-my-workspaces-<version>.vsix` (gitignored).
 
 Inspect contents if needed:
 
@@ -91,7 +91,7 @@ Microsoft recommends workload identity federation + managed identity instead of 
 
 - Marketplace `icon` must be PNG, not SVG.
 - README / CHANGELOG images must resolve as HTTPS or as packaged relative files. Prefer relative `media/*.png` paths in this repo.
-- Do **not** put user SVG images in README or CHANGELOG.
+- Do **not** put user SVG images in README or CHANGELOG. shieldcn badges must use the `.png` endpoint (`.svg` is rejected by `vsce`).
 - Keep SVG sources out of the VSIX (already covered by `.vscodeignore`).
 
 ## Version and changelog
@@ -113,12 +113,12 @@ Cursor and some other editors also pull from [Open VSX](https://open-vsx.org/). 
 
 ```bash
 pnpm add -D ovsx
-pnpm exec ovsx publish workspace-color-<version>.vsix -p <OPEN_VSX_TOKEN>
+pnpm exec ovsx publish color-my-workspaces-<version>.vsix -p <OPEN_VSX_TOKEN>
 ```
 
 ## After publish
 
-- Marketplace page: `https://marketplace.visualstudio.com/items?itemName=gvastethecreator.workspace-color`
-- Install from the Extensions view by searching **Workspace Color**.
+- Marketplace page: `https://marketplace.visualstudio.com/items?itemName=gvastethecreator.color-my-workspaces`
+- Install from the Extensions view by searching **Color My Workspaces**.
 - Upload `media/social-preview.png` as the GitHub repository social preview image.
 - Watch the first issues for missing permissions / Modern UI notes already covered in the README.

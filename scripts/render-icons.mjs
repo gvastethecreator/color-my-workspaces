@@ -15,8 +15,8 @@ const socialOutDir = path.join(root, "docs", "assets", "github-readme-assets", "
 const socialOutPath = path.join(socialOutDir, "social-preview.png");
 
 async function roundCorners(input, radius) {
-  const image = sharp(input).ensureAlpha();
-  const { width, height } = await image.metadata();
+  // Fresh sharp pipelines only — reusing one after metadata() can corrupt bounds.
+  const { width, height } = await sharp(input).metadata();
   if (!width || !height) {
     throw new Error("Could not read image dimensions for rounded corners");
   }
@@ -25,7 +25,8 @@ async function roundCorners(input, radius) {
       <rect width="${width}" height="${height}" rx="${radius}" ry="${radius}" fill="#fff"/>
     </svg>`,
   );
-  return image
+  return sharp(input)
+    .ensureAlpha()
     .composite([{ input: mask, blend: "dest-in" }])
     .png()
     .toBuffer();
@@ -69,8 +70,8 @@ async function composeSocialPreview() {
 
   const textOverlay = Buffer.from(`
 <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-  <text x="${textLeft}" y="${titleY}" fill="#f4f4f5" font-family="Segoe UI, system-ui, sans-serif" font-size="58" font-weight="650">Workspace Color</text>
-  <text x="${textLeft}" y="${taglineY}" fill="#a1a1aa" font-family="Segoe UI, system-ui, sans-serif" font-size="28">Customize your projects with different colors</text>
+  <text x="${textLeft}" y="${titleY}" fill="#f4f4f5" font-family="Segoe UI, system-ui, sans-serif" font-size="50" font-weight="650">Color My Workspaces</text>
+  <text x="${textLeft}" y="${taglineY}" fill="#a1a1aa" font-family="Segoe UI, system-ui, sans-serif" font-size="26">Customize your projects with different colors</text>
 </svg>`);
 
   const flat = await sharp({

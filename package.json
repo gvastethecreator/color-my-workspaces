@@ -1,6 +1,6 @@
 {
-  "name": "workspace-color",
-  "displayName": "Workspace Color",
+  "name": "color-my-workspaces",
+  "displayName": "Color My Workspaces",
   "description": "Color the VS Code title bar, activity bar, and status bar per workspace.",
   "version": "0.0.1",
   "packageManager": "pnpm@12.0.0",
@@ -17,12 +17,12 @@
   "pricing": "Free",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gvastethecreator/vscode-workspace-color.git"
+    "url": "https://github.com/gvastethecreator/color-my-workspaces.git"
   },
   "bugs": {
-    "url": "https://github.com/gvastethecreator/vscode-workspace-color/issues"
+    "url": "https://github.com/gvastethecreator/color-my-workspaces/issues"
   },
-  "homepage": "https://github.com/gvastethecreator/vscode-workspace-color#readme",
+  "homepage": "https://github.com/gvastethecreator/color-my-workspaces#readme",
   "keywords": [
     "workspace",
     "color",
@@ -49,41 +49,41 @@
       {
         "command": "workspaceColor.applyFromFolder",
         "title": "Apply Color from Folder",
-        "category": "Workspace Color"
+        "category": "Color My Workspaces"
       },
       {
         "command": "workspaceColor.pick",
         "title": "Pick Color",
-        "category": "Workspace Color"
+        "category": "Color My Workspaces"
       },
       {
         "command": "workspaceColor.quickActions",
         "title": "Change Color...",
-        "category": "Workspace Color"
+        "category": "Color My Workspaces"
       },
       {
         "command": "workspaceColor.surprise",
         "title": "Surprise Me",
-        "category": "Workspace Color"
+        "category": "Color My Workspaces"
       },
       {
         "command": "workspaceColor.reset",
         "title": "Clear Color",
-        "category": "Workspace Color"
+        "category": "Color My Workspaces"
       },
       {
         "command": "workspaceColor.resetSettings",
         "title": "Reset Settings",
-        "category": "Workspace Color"
+        "category": "Color My Workspaces"
       },
       {
         "command": "workspaceColor.openPanel",
-        "title": "Open Workspace Color Settings",
-        "category": "Workspace Color"
+        "title": "Open Color My Workspaces Settings",
+        "category": "Color My Workspaces"
       }
     ],
     "configuration": {
-      "title": "Workspace Color",
+      "title": "Color My Workspaces",
       "properties": {
         "workspaceColor.label": {
           "type": "string",

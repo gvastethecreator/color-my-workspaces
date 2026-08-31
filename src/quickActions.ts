@@ -40,7 +40,7 @@ export async function pickPaletteColor(
   currentColor?: string,
 ): Promise<string | undefined> {
   const picked = await vscode.window.showQuickPick(paletteItems(palette, currentColor), {
-    title: "Workspace Color",
+    title: "Color My Workspaces",
     placeHolder: "Pick a color",
     matchOnDescription: true,
   });
@@ -55,7 +55,7 @@ export function statusActionItems(input: {
   applied?: boolean;
 }): ActionItem[] {
   const items: ActionItem[] = [
-    { label: "$(gear) Workspace Color Settings", action: { type: "settings" } },
+    { label: "$(gear) Color My Workspaces Settings", action: { type: "settings" } },
     {
       label: input.showStatusBarLabel ? "$(eye-closed) Hide status bar name" : "$(eye) Show status bar name",
       action: { type: "toggleLabel" },
@@ -109,7 +109,7 @@ export async function pickStatusAction(input: {
   applied?: boolean;
 }): Promise<StatusAction | undefined> {
   const picked = await vscode.window.showQuickPick(statusActionItems(input), {
-    title: "Workspace Color",
+    title: "Color My Workspaces",
     placeHolder: "Change this workspace color",
     matchOnDescription: true,
   });
