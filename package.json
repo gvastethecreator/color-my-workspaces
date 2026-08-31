@@ -145,7 +145,7 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "tsc --noEmit && node esbuild.js --production",
+    "vscode:prepublish": "pnpm run package",
     "compile": "tsc --noEmit && node esbuild.js",
     "watch": "node esbuild.js --watch",
     "package": "tsc --noEmit && node esbuild.js --production",
@@ -157,7 +157,6 @@
   "devDependencies": {
     "@types/node": "^24.3.0",
     "@types/vscode": "^1.90.0",
-    "@vscode/codicons": "0.0.46-24",
     "@vscode/vsce": "^3.9.2",
     "esbuild": "^0.28.2",
     "sharp": "^0.35.4",

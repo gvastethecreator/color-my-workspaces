@@ -70,7 +70,3 @@ export function parseCodiconId(raw: string | undefined): string | undefined {
   }
   return id;
 }
-
-export function statusIconText(id: string): string {
-  return `$(${id})`;
-}

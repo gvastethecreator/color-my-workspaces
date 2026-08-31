@@ -10,7 +10,6 @@
     "skipLibCheck": true,
     "moduleResolution": "node",
     "noEmit": true,
-    "sourceMap": true,
     "allowImportingTsExtensions": true
   },
   "include": ["src/**/*.ts"]

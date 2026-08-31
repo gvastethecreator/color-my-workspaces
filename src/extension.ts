@@ -14,7 +14,7 @@ import { PALETTE } from "./palette.ts";
 import { openColorPanel, postPanelState } from "./panel.ts";
 import { chromeTones, chromeCompatibilityNote, type PanelMessage, type PanelState } from "./panelState.ts";
 import { pickCodicon, pickPaletteColor, pickStatusAction } from "./quickActions.ts";
-import { formatStatusBarItem, formatStatusPreviewText, STATUS_CHIP_TEXT, statusBarTooltip, statusChipColor } from "./statusDisplay.ts";
+import { formatStatusBarItem, formatStatusBarText, STATUS_CHIP_TEXT, statusBarTooltip, statusChipColor } from "./statusDisplay.ts";
 
 const DISABLED_KEY = "workspaceColor.disabled";
 const PREVIOUS_COLOR_KEY = "workspaceColor.previousColor";
@@ -631,7 +631,7 @@ function panelState(
     }),
     flags,
     tones,
-    statusPreviewText: formatStatusPreviewText(name),
+    statusPreviewText: formatStatusBarText(name),
     statusForeground: contrastForeground(tones.statusBar),
     chipColor: statusChipColor(
       color,

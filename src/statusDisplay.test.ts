@@ -3,7 +3,6 @@ import { describe, it } from "node:test";
 import {
   formatStatusBarItem,
   formatStatusBarText,
-  formatStatusPreviewText,
   STATUS_CHIP_TEXT,
   STATUS_CLICK_HINT,
   statusBarTooltip,
@@ -27,13 +26,6 @@ describe("formatStatusBarItem", () => {
     assert.equal(formatStatusBarItem({ icon: "rocket", name: "shop" }), "$(rocket) shop");
     assert.equal(formatStatusBarItem({ icon: "folder" }), "$(folder)");
     assert.equal(formatStatusBarItem({ name: "shop" }), "shop");
-  });
-});
-
-describe("formatStatusPreviewText", () => {
-  it("returns the truncated name without an icon", () => {
-    assert.equal(formatStatusPreviewText("shop"), "shop");
-    assert.equal(formatStatusPreviewText("abcdefghijklmnopqrstuvwxyz0123").includes("$("), false);
   });
 });
 

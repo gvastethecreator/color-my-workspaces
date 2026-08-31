@@ -1,4 +1,4 @@
-import { mkdir, copyFile, readFile } from "node:fs/promises";
+import { mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -6,13 +6,11 @@ import sharp from "sharp";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const media = path.join(root, "media");
 const svgPath = path.join(media, "icon.svg");
-const sourcePngPath = path.join(media, "icon-source.png");
 const marketplaceIconPath = path.join(media, "icon.png");
 const hiresIconPath = path.join(media, "icon-512.png");
 const previewSourcePath = path.join(media, "preview-source.png");
 const previewPath = path.join(media, "preview.png");
-const socialOutDir = path.join(root, "docs", "assets", "github-readme-assets", "final");
-const socialOutPath = path.join(socialOutDir, "social-preview.png");
+const socialOutPath = path.join(media, "social-preview.png");
 
 async function roundCorners(input, radius) {
   // Fresh sharp pipelines only — reusing one after metadata() can corrupt bounds.
@@ -36,7 +34,6 @@ async function renderSquareIcons() {
   const svg = await readFile(svgPath);
   const base = sharp(svg, { density: 384 }).ensureAlpha();
 
-  await base.clone().resize(512, 512, { fit: "fill" }).png().toFile(sourcePngPath);
   await base.clone().resize(512, 512, { fit: "fill" }).png().toFile(hiresIconPath);
   await base.clone().resize(128, 128, { fit: "fill" }).png().toFile(marketplaceIconPath);
 
@@ -44,11 +41,10 @@ async function renderSquareIcons() {
   const meta512 = await sharp(hiresIconPath).metadata();
   console.log(`icon.png ${meta128.width}x${meta128.height}`);
   console.log(`icon-512.png ${meta512.width}x${meta512.height}`);
-  console.log("icon-source.png 512x512 (master raster)");
 }
 
 async function composeSocialPreview() {
-  await mkdir(socialOutDir, { recursive: true });
+  await mkdir(media, { recursive: true });
 
   const width = 1280;
   const height = 420;
@@ -89,14 +85,11 @@ async function composeSocialPreview() {
     .png()
     .toBuffer();
 
-  const rounded = await roundCorners(flat, 24);
-  await sharp(rounded).png().toFile(socialOutPath);
-  await copyFile(socialOutPath, path.join(media, "social-preview.png"));
+  await sharp(await roundCorners(flat, 24)).png().toFile(socialOutPath);
   console.log(`social-preview.png ${width}x${height} (rx=24)`);
 }
 
 async function roundPreview() {
-  // Prefer a square source so re-runs stay idempotent.
   let source;
   try {
     source = await readFile(previewSourcePath);
@@ -104,8 +97,7 @@ async function roundPreview() {
     source = await readFile(previewPath);
     await sharp(source).png().toFile(previewSourcePath);
   }
-  const rounded = await roundCorners(source, 20);
-  await sharp(rounded).png().toFile(previewPath);
+  await sharp(await roundCorners(source, 20)).png().toFile(previewPath);
   const meta = await sharp(previewPath).metadata();
   console.log(`preview.png ${meta.width}x${meta.height} (rx=20)`);
 }

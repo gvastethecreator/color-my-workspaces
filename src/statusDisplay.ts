@@ -19,10 +19,6 @@ export function formatStatusBarItem(input: { icon?: string; name?: string }): st
   return parts.join(" ");
 }
 
-export function formatStatusPreviewText(name: string): string {
-  return truncateLabel(name);
-}
-
 export function statusBarTooltip(input: { name: string; color?: string }): string {
   if (input.color) {
     return `${input.name} · ${input.color} · ${STATUS_CLICK_HINT}`;

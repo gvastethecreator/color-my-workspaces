@@ -1,6 +1,6 @@
-# Workspace Color
+# Color My Workspaces
 
-VS Code / Cursor extension. pnpm. TypeScript sources in `src/`. esbuild writes `dist/extension.js`.
+VS Code / Cursor extension (`gvastethecreator.color-my-workspaces`). pnpm. TypeScript in `src/`. esbuild writes `dist/extension.js`.
 
 ## Commands
 
@@ -36,7 +36,6 @@ F5 (`Run Extension`) compiles, then opens `test-workspace/` so chrome colors do 
 - `src/color.ts`, `src/palette.ts`, `src/identity.ts`, `src/icons.ts`, `src/merge.ts`, `src/panelState.ts`
 - `src/*.test.ts` — Node test runner
 - `test-workspace/` — Extension Host folder
-- `docs/codemap/` — generated map; refresh with `$maintain-code-map`
 
 ## Agent skills
 
