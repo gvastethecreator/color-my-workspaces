@@ -2,6 +2,14 @@
 
 All notable changes to Color My Workspaces are documented in this file.
 
+## [0.0.33] - 2026-08-31
+
+### Changed
+
+- Smaller VSIX: drop the bundled Codicon font; the settings panel uses a Codicon SVG subset
+- README uses the local extension icon on the right instead of a banner
+- Exclude `social-preview.png` from the Marketplace package
+
 ## [0.0.31] - 2026-08-31
 
 ### Added
