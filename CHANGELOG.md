@@ -2,6 +2,13 @@
 
 All notable changes to Color My Workspaces are documented in this file.
 
+## [0.0.2] - 2026-08-30
+
+### Changed
+
+- Simplified packaging docs and assets for Marketplace updates
+- Cleaned unused helpers and duplicate media files
+
 ## [0.0.1] - 2026-08-30
 
 ### Added
