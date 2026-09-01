@@ -115,6 +115,9 @@ importers:
       '@types/vscode':
         specifier: ^1.134.0
         version: 1.134.0
+      '@typescript/typescript-win32-x64':
+        specifier: 7.0.2
+        version: 7.0.2
       '@vscode/vsce':
         specifier: ^3.9.2
         version: 3.9.2(supports-color@7.2.0)
@@ -2144,8 +2147,7 @@ snapshots:
   '@typescript/typescript-win32-arm64@7.0.2':
     optional: true
 
-  '@typescript/typescript-win32-x64@7.0.2':
-    optional: true
+  '@typescript/typescript-win32-x64@7.0.2': {}
 
   '@typespec/ts-http-runtime@0.3.8(supports-color@7.2.0)':
     dependencies:
