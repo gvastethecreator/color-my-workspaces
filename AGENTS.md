@@ -22,9 +22,23 @@ F5 (`Run Extension`) compiles, then opens `test-workspace/` so chrome colors do 
 - This extension colors VS Code chrome via `workbench.colorCustomizations`. It cannot color the Windows taskbar.
 - Theme keys: `titleBar.*`, `activityBar.*`, `activityBarTop.*`, `statusBar.*`, `commandCenter.*`. Modern UI uses `titleBar` as the window-shell backdrop. Activity bar on top or bottom needs `activityBarTop`.
 - Do not commit `.vscode/settings.json` in this repo. It is operator chrome from testing the extension.
-- Do not write tickets under `docs/`. Local tickets: `.scratch/workspace-color/issues/`.
+- Do not write tickets under `docs/`. Local tickets: `.scratch/vscode-color-my-workspaces/issues/`.
 - Logs belong in `logs/`. Do not dump logs at the repo root.
 - Do not commit, push, or rewrite git history unless the user asks.
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues and the linked GitHub Project hold live state. `.scratch/` holds synchronized local mirrors. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Category: `bug` or `enhancement`. Triage: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. Project status: `Todo`, `In Progress`, `Done`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: root `CONTEXT.md` plus `docs/adr/`. See `docs/agents/domain.md`.
 
 ## Layout
 
@@ -37,3 +51,4 @@ F5 (`Run Extension`) compiles, then opens `test-workspace/` so chrome colors do 
 - `src/*.test.ts` — Node test runner
 - `test-workspace/` — Extension Host folder
 - `docs/codemap/` — generated map; refresh with `$maintain-code-map`
+- `docs/agents/` — issue tracker, triage labels, domain docs

@@ -17,12 +17,12 @@
   "pricing": "Free",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gvastethecreator/color-my-workspaces.git"
+    "url": "https://github.com/gvastethecreator/vscode-color-my-workspaces.git"
   },
   "bugs": {
-    "url": "https://github.com/gvastethecreator/color-my-workspaces/issues"
+    "url": "https://github.com/gvastethecreator/vscode-color-my-workspaces/issues"
   },
-  "homepage": "https://github.com/gvastethecreator/color-my-workspaces#readme",
+  "homepage": "https://github.com/gvastethecreator/vscode-color-my-workspaces#readme",
   "keywords": [
     "workspace",
     "color",

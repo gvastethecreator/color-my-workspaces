@@ -20,7 +20,7 @@ import { formatStatusBarItem, formatStatusBarText, STATUS_CHIP_TEXT, statusBarTo
 const DISABLED_KEY = "workspaceColor.disabled";
 const PREVIOUS_COLOR_KEY = "workspaceColor.previousColor";
 const WELCOME_KEY = "workspaceColor.didShowWelcome";
-const SUPPORT_URL = "https://github.com/gvastethecreator/color-my-workspaces";
+const SUPPORT_URL = "https://github.com/gvastethecreator/vscode-color-my-workspaces";
 const TARGET = vscode.ConfigurationTarget.Workspace;
 const MODERN_UI_SETTING = "experimental.modernUI";
 // Git/SCM uses 10000. Remote uses +Infinity and stays first.
