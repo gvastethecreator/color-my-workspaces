@@ -14,10 +14,10 @@
 
 ---
 
-### *Getting started :*
+### Getting started
 
 1) Install **Color My Workspaces** from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gvastethecreator.color-my-workspaces).
-2) Open a folder, and click the project name on the left of the status bar.
+2) Open a folder, then click the project name on the left of the status bar.
 3) Customize your workspace.
 
 <img src="media/preview.png" alt="Settings panel" width="100%" />
