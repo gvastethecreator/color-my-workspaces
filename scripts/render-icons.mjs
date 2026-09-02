@@ -11,6 +11,14 @@ const hiresIconPath = path.join(media, "icon-512.png");
 const previewSourcePath = path.join(media, "preview-source.png");
 const previewPath = path.join(media, "preview.png");
 const socialOutPath = path.join(media, "social-preview.png");
+const previewArgumentIndex = process.argv.indexOf("--preview-source");
+const previewInputPath = previewArgumentIndex === -1
+  ? undefined
+  : process.argv[previewArgumentIndex + 1];
+
+if (previewArgumentIndex !== -1 && !previewInputPath) {
+  throw new Error("--preview-source requires a file path");
+}
 
 async function roundCorners(input, radius) {
   // Fresh sharp pipelines only — reusing one after metadata() can corrupt bounds.
@@ -91,11 +99,16 @@ async function composeSocialPreview() {
 
 async function roundPreview() {
   let source;
-  try {
-    source = await readFile(previewSourcePath);
-  } catch {
-    source = await readFile(previewPath);
+  if (previewInputPath) {
+    source = await readFile(path.resolve(root, previewInputPath));
     await sharp(source).png().toFile(previewSourcePath);
+  } else {
+    try {
+      source = await readFile(previewSourcePath);
+    } catch {
+      source = await readFile(previewPath);
+      await sharp(source).png().toFile(previewSourcePath);
+    }
   }
   await sharp(await roundCorners(source, 20)).png().toFile(previewPath);
   const meta = await sharp(previewPath).metadata();

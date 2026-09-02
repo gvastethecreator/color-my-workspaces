@@ -3,6 +3,7 @@ import { describe, it } from "node:test";
 import {
   adjustLightness,
   colorFromIdentity,
+  contrastRatio,
   contrastForeground,
   hexWithAlpha,
   hslToHex,
@@ -51,6 +52,15 @@ describe("contrastForeground", () => {
     const light = relativeLuminance(parseHex("#eeeeee")!);
     assert.ok(light > dark);
   });
+
+  it("chooses the foreground with the higher WCAG contrast ratio", () => {
+    for (const background of ["#000000", "#336699", "#777777", "#ffffff"]) {
+      const foreground = contrastForeground(background);
+      const other = foreground === "#161616" ? "#f4f4f4" : "#161616";
+      assert.ok(contrastRatio(background, foreground) >= contrastRatio(background, other));
+      assert.ok(contrastRatio(background, foreground) >= 4.5);
+    }
+  });
 });
 
 describe("colorFromIdentity", () => {
@@ -64,6 +74,16 @@ describe("colorFromIdentity", () => {
 
   it("returns a parseable hex", () => {
     assert.equal(isValidHex(colorFromIdentity("vscode-color")), true);
+  });
+
+  it("keeps generated colors inside the documented saturation and lightness bounds", () => {
+    for (let index = 0; index < 500; index++) {
+      const color = colorFromIdentity(`workspace-${index}`);
+      const hsl = hexToHsl(color)!;
+      assert.ok(hsl.s >= 45 && hsl.s <= 62);
+      assert.ok(hsl.l >= 29 && hsl.l <= 42);
+      assert.ok(contrastRatio(color, contrastForeground(color)) >= 4.5);
+    }
   });
 });
 
