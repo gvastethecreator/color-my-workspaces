@@ -11,6 +11,7 @@ export type StatusAction =
   | { type: "toggleLabel" }
   | { type: "toggleIcon" }
   | { type: "pickIcon" }
+  | { type: "reapply" }
   | { type: "reset" };
 
 type PaletteItem = vscode.QuickPickItem & { color: string };
@@ -53,6 +54,7 @@ export function statusActionItems(input: {
   showStatusBarLabel: boolean;
   showStatusBarIcon?: boolean;
   applied?: boolean;
+  conflictCount?: number;
 }): ActionItem[] {
   const items: ActionItem[] = [
     { label: "$(gear) Color My Workspaces Settings", action: { type: "settings" } },
@@ -73,6 +75,13 @@ export function statusActionItems(input: {
       label: "$(copy) Copy color",
       description: input.currentColor,
       action: { type: "copy" },
+    });
+  }
+  if ((input.conflictCount ?? 0) > 0) {
+    items.push({
+      label: "$(sync) Reapply and take ownership",
+      description: `${input.conflictCount} external change${input.conflictCount === 1 ? "" : "s"}`,
+      action: { type: "reapply" },
     });
   }
   if (input.applied) {
@@ -107,6 +116,7 @@ export async function pickStatusAction(input: {
   showStatusBarLabel: boolean;
   showStatusBarIcon?: boolean;
   applied?: boolean;
+  conflictCount?: number;
 }): Promise<StatusAction | undefined> {
   const picked = await vscode.window.showQuickPick(statusActionItems(input), {
     title: "Color My Workspaces",

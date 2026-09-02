@@ -6,8 +6,8 @@ import {
   elementBackground,
   flagsToElements,
   MANAGED_CHROME_KEYS,
-  resolveActivityBarFlag,
 } from "./chrome.ts";
+import { colorFromIdentity, contrastRatio, parseHex } from "./color.ts";
 
 describe("buildChromeColors", () => {
   it("paints only the requested chrome", () => {
@@ -68,6 +68,60 @@ describe("buildChromeColors", () => {
     assert.equal(MANAGED_CHROME_KEYS.includes("activityBar.border"), true);
     assert.equal(MANAGED_CHROME_KEYS.includes("statusBar.border"), true);
   });
+
+  it("keeps generated text pairs at 4.5:1 or better", () => {
+    const pairs = [
+      ["titleBar.activeBackground", "titleBar.activeForeground"],
+      ["titleBar.inactiveBackground", "titleBar.inactiveForeground"],
+      ["activityBar.background", "activityBar.foreground"],
+      ["activityBarBadge.background", "activityBarBadge.foreground"],
+      ["statusBar.background", "statusBar.foreground"],
+      ["statusBarItem.hoverBackground", "statusBar.foreground"],
+      ["statusBarItem.activeBackground", "statusBar.foreground"],
+      ["statusBar.debuggingBackground", "statusBar.debuggingForeground"],
+      ["statusBarItem.remoteBackground", "statusBarItem.remoteForeground"],
+      ["commandCenter.background", "commandCenter.foreground"],
+      ["commandCenter.activeBackground", "commandCenter.activeForeground"],
+      ["commandCenter.inactiveBackground", "commandCenter.inactiveForeground"],
+    ] as const;
+
+    for (let index = 0; index < 2_048; index++) {
+      const colors = buildChromeColors(
+        colorFromIdentity(`v2:folders:contrast-${index}`),
+        ALL_CHROME_ELEMENTS,
+        { stepped: true },
+      );
+      for (const [background, foreground] of pairs) {
+        assert.ok(
+          contrastRatio(colors[background], colors[foreground]) >= 4.5,
+          `${background} / ${foreground} failed for sample ${index}`,
+        );
+      }
+    }
+  });
+
+  it("keeps inactive activity icons at 3:1 or better", () => {
+    for (let index = 0; index < 2_048; index++) {
+      const colors = buildChromeColors(
+        colorFromIdentity(`v2:folders:icon-contrast-${index}`),
+        ["activityBar"],
+        { stepped: true },
+      );
+      const background = parseHex(colors["activityBar.background"]);
+      const foreground = parseHex(colors["activityBar.inactiveForeground"]);
+      const alpha = Number.parseInt(colors["activityBar.inactiveForeground"].slice(7, 9), 16) / 255;
+      assert.ok(background && foreground);
+      const composited = {
+        r: foreground.r * alpha + background.r * (1 - alpha),
+        g: foreground.g * alpha + background.g * (1 - alpha),
+        b: foreground.b * alpha + background.b * (1 - alpha),
+      };
+      assert.ok(
+        contrastRatio(background, composited) >= 3,
+        `activityBar.inactiveForeground failed for sample ${index}`,
+      );
+    }
+  });
 });
 
 describe("flagsToElements", () => {
@@ -81,24 +135,6 @@ describe("flagsToElements", () => {
       }),
       ["titleBar", "statusBar"],
     );
-  });
-});
-
-describe("resolveActivityBarFlag", () => {
-  it("turns off the top and bottom activity bar when unset", () => {
-    assert.equal(resolveActivityBarFlag(undefined, "top"), false);
-    assert.equal(resolveActivityBarFlag(undefined, "bottom"), false);
-  });
-
-  it("keeps the side rail on when unset", () => {
-    assert.equal(resolveActivityBarFlag(undefined, "default"), true);
-    assert.equal(resolveActivityBarFlag(undefined, undefined), true);
-    assert.equal(resolveActivityBarFlag(undefined, "hidden"), true);
-  });
-
-  it("keeps an explicit choice", () => {
-    assert.equal(resolveActivityBarFlag(true, "top"), true);
-    assert.equal(resolveActivityBarFlag(false, "default"), false);
   });
 });
 

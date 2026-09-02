@@ -1,89 +1,100 @@
-# Publishing Color My Workspaces
+# Publishing and rollback
 
 Extension id: `gvastethecreator.color-my-workspaces`.
 
-## Package a VSIX (no token needed)
+Publishing is an operator action. Building or verifying a VSIX does not authorize tagging, pushing, publishing, deprecating, or unpublishing.
 
-```bash
+## Release candidate
+
+1. Set `package.json` to the intended SemVer.
+2. Replace `[version] - Unreleased` in `CHANGELOG.md` with the release date.
+3. Update the PDR, compatibility matrix, security review, performance evidence, and screenshot.
+4. Run:
+
+```powershell
+pnpm install --frozen-lockfile
+pnpm test
+pnpm run check-types
+pnpm run check:release
+pnpm run check:media
+pnpm run check:performance
+pnpm run test:integration
+pnpm run test:vsix
+```
+
+5. Run the minimum and Insiders Extension Host lanes locally when available:
+
+```powershell
+$env:VSCODE_TEST_VERSION = "1.134.0"
+pnpm run test:integration
+$env:VSCODE_TEST_VERSION = "insiders"
+pnpm run test:integration
+Remove-Item Env:VSCODE_TEST_VERSION
+```
+
+6. Review `git diff`, the VSIX file list, and the launch checklist.
+7. Obtain explicit commit/push/merge/tag/publication approval.
+
+## GitHub Actions release
+
+A `v<package-version>` tag starts `.github/workflows/release.yml`.
+
+The release workflow:
+
+- checks tag/version/changelog consistency;
+- verifies deterministic media on Windows before the build;
+- runs unit, types, performance, integration, package inspection, and installed-VSIX smoke gates on Ubuntu;
+- uploads one 90-day VSIX artifact.
+
+Marketplace and Open VSX publication are independent jobs and environments. Configure:
+
+- `VSCE_PAT` in the `vscode-marketplace` environment;
+- `OVSX_PAT` in the `open-vsx` environment.
+
+Use required reviewers on both environments. A registry failure must not republish or mutate the other registry's artifact.
+
+## Manual fallback
+
+Package without a token:
+
+```powershell
 pnpm run vsix
+pnpm run inspect:vsix
 ```
 
-Output: `color-my-workspaces-<version>.vsix` (gitignored).
+Marketplace: upload the exact verified VSIX at [Marketplace management](https://marketplace.visualstudio.com/manage).
 
-## Easiest publish path: upload in the browser
+Open VSX:
 
-You do **not** need the CLI or a PAT for the first publish.
-
-1. Open [https://marketplace.visualstudio.com/manage](https://marketplace.visualstudio.com/manage)
-2. Sign in with the Microsoft account that owns publisher `gvastethecreator`
-3. Create the publisher if it does not exist yet (id must match `package.json`)
-4. Choose **New extension** → **Visual Studio Code** → upload `color-my-workspaces-0.0.1.vsix`
-
-That path avoids `vsce login` and Azure DevOps tokens entirely.
-
-## MFA is not a paid Marketplace feature
-
-- Microsoft account **MFA is free** for personal accounts (Security info / authenticator app).
-- Creating an Azure DevOps **Personal Access Token is free**.
-- Paid Microsoft Entra / Conditional Access products are for organizations; they are not required to publish a free VS Code extension.
-
-If the CLI asks for MFA, that is your Microsoft account security challenge, not a Marketplace paywall.
-
-## Optional: CLI publish with a PAT
-
-Use this only if you want `vsce publish` from the terminal.
-
-1. Open [https://dev.azure.com](https://dev.azure.com) with the **same** Microsoft account as the Marketplace publisher.
-2. If Azure DevOps asks you to create an organization, create a free one (any name).
-3. User settings (top right) → **Personal access tokens** → **New Token**.
-4. Settings that matter:
-   - Organization: **All accessible organizations**
-   - Scopes → **Show all scopes** → **Marketplace** → **Manage**
-5. Create, copy the token once, store it outside git.
-6. Publish:
-
-```bash
-# Avoid keytar issues on Windows if needed:
-set VSCE_PAT=YOUR_TOKEN_HERE
-pnpm exec vsce publish --no-dependencies
+```powershell
+pnpm exec ovsx publish .\color-my-workspaces-<version>.vsix -p $env:OVSX_PAT
 ```
 
-Or:
+Never place a PAT in a command committed to Git, an issue, a log, or documentation.
 
-```bash
-pnpm exec vsce login gvastethecreator
-pnpm exec vsce publish --no-dependencies
-```
+## Post-publish verification
 
-Common mistakes: scoping the PAT to one org instead of **All accessible organizations**, or forgetting **Marketplace → Manage**.
+From each registry:
 
-Global Azure DevOps PATs are being retired on **1 December 2026**. After that, prefer browser upload or GitHub Actions OIDC.
+1. confirm version, README, icon, license, and repository links;
+2. install into a clean profile;
+3. open a fixture workspace and confirm activation does not write;
+4. apply a folder color;
+5. simulate an external managed-key change;
+6. Clear and verify baseline/external/unmanaged values;
+7. upgrade a 0.0.x fixture and verify color migration;
+8. record Windows stable plus required platform/remote evidence;
+9. retain the verified VSIX and checksum.
 
-## Optional: publish from GitHub Actions (OIDC, no PAT)
+## Rollback
 
-`@vscode/vsce` supports `vsce publish --oidc` from GitHub Actions after you configure a trusted publishing policy on the Marketplace for this repo. See the [vsce trusted publishing docs](https://github.com/microsoft/vscode-vsce#trusted-publishing).
+Prefer a forward patch release.
 
-## Marketplace content rules
+1. Pause both publication environments.
+2. Preserve the failing VSIX, logs, version, affected VS Code versions, and reproduction.
+3. Restore the previous retained VSIX in a clean profile to confirm the boundary.
+4. Add the smallest regression test.
+5. Publish a higher patch version with the fix.
+6. Deprecate or unpublish only after reviewing registry consequences and obtaining explicit approval.
 
-- `package.json` → `icon` must be PNG (not SVG).
-- README / CHANGELOG images: relative `media/*.png` or HTTPS. shieldcn badges must use `.png` (`.svg` is rejected by `vsce`).
-- Keep SVG sources out of the VSIX (see `.vscodeignore`).
-
-## Assets
-
-| File | Role |
-| --- | --- |
-| `media/icon.svg` | Master vector |
-| `media/icon.png` | Marketplace icon (128×128) |
-| `media/icon-512.png` | High-res raster |
-| `media/preview.png` | README / Marketplace screenshot |
-| `media/preview-source.png` | Square screenshot source for `pnpm run icons` |
-| `media/social-preview.png` | GitHub social preview (upload in repo Settings) |
-
-Regenerate rasters: `pnpm run icons`.
-
-## After publish
-
-- Page: `https://marketplace.visualstudio.com/items?itemName=gvastethecreator.color-my-workspaces`
-- Search **Color My Workspaces** in the Extensions view
-- Upload `media/social-preview.png` as the GitHub social preview image
+Never rewrite a public tag or replace bytes under an existing version. Open VSX and Marketplace actions remain independent.

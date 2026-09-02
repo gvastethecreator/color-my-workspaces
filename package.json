@@ -2,7 +2,7 @@
   "name": "color-my-workspaces",
   "displayName": "Color My Workspaces",
   "description": "Color the VS Code title bar, activity bar, and status bar per workspace.",
-  "version": "0.0.34",
+  "version": "0.1.0",
   "packageManager": "pnpm@12.1.0",
   "publisher": "gvastethecreator",
   "author": {
@@ -44,6 +44,15 @@
     "onStartupFinished"
   ],
   "main": "./dist/extension.js",
+  "extensionKind": [
+    "ui"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
   "contributes": {
     "commands": [
       {
@@ -77,6 +86,11 @@
         "category": "Color My Workspaces"
       },
       {
+        "command": "workspaceColor.reapply",
+        "title": "Reapply Color and Take Ownership",
+        "category": "Color My Workspaces"
+      },
+      {
         "command": "workspaceColor.openPanel",
         "title": "Open Color My Workspaces Settings",
         "category": "Color My Workspaces"
@@ -88,52 +102,70 @@
         "workspaceColor.label": {
           "type": "string",
           "default": "",
-          "description": "Name shown on the left of the status bar. Empty uses the folder or workspace name."
+          "scope": "window",
+          "maxLength": 80,
+          "description": "Name shown in the status bar. Empty uses the folder or saved workspace name."
         },
         "workspaceColor.showStatusBarLabel": {
           "type": "boolean",
           "default": true,
+          "scope": "window",
           "description": "Show the project name on the left of the status bar. Turn off to hide the name."
         },
         "workspaceColor.icon": {
           "type": "string",
           "default": "",
+          "scope": "window",
           "description": "Codicon id shown on the left of the status bar, such as folder or rocket. Empty uses folder when the icon is shown."
         },
         "workspaceColor.showStatusBarIcon": {
           "type": "boolean",
           "default": false,
+          "scope": "window",
           "description": "Show a Codicon on the left of the status bar. Turn off to hide the icon."
         },
         "workspaceColor.color": {
           "type": "string",
           "format": "color",
           "default": "",
-          "description": "Hex color for this workspace. Empty uses a color derived from the folder name."
+          "scope": "window",
+          "description": "Hex color for this workspace. Empty previews a stable color derived from its canonical URI. Applying a color writes workspace settings and may change a committed .vscode/settings.json or .code-workspace file."
         },
         "workspaceColor.autoApply": {
           "type": "boolean",
-          "default": true,
-          "description": "Apply the workspace color when the window opens."
+          "default": false,
+          "scope": "window",
+          "description": "Reapply the color when this workspace opens. No workspace setting is written until you explicitly apply a color or enable this option."
+        },
+        "workspaceColor.identity": {
+          "type": "string",
+          "default": "",
+          "scope": "window",
+          "maxLength": 120,
+          "description": "Optional stable identity override used to derive the workspace color. Empty uses the saved workspace URI or sorted folder URIs."
         },
         "workspaceColor.stepped": {
           "type": "boolean",
           "default": true,
+          "scope": "window",
           "description": "Use a slightly different tone on each bar so they read as steps, not a flat block."
         },
         "workspaceColor.titleBar": {
           "type": "boolean",
           "default": true,
-          "description": "Color the window shell (titleBar). In the new UI this is the backdrop behind the whole chrome."
+          "scope": "window",
+          "description": "Color the title bar and window shell. Experimental Modern UI can blend this color across other chrome surfaces."
         },
         "workspaceColor.activityBar": {
           "type": "boolean",
           "default": true,
-          "description": "Color the activity bar. When unset, this is on for the side rail (left or right) and off when the activity bar is on the top or bottom."
+          "scope": "window",
+          "description": "Color the activity bar, including its top or bottom placement."
         },
         "workspaceColor.statusBar": {
           "type": "boolean",
           "default": true,
+          "scope": "window",
           "description": "Color the status bar."
         },
         "workspaceColor.statusBarClick": {
@@ -147,11 +179,13 @@
             "Open the Color My Workspaces settings panel."
           ],
           "default": "quick",
+          "scope": "window",
           "description": "What a click on the status bar name or color pill opens."
         },
         "workspaceColor.commandCenter": {
           "type": "boolean",
           "default": true,
+          "scope": "window",
           "description": "Color the command center."
         }
       }
@@ -164,15 +198,25 @@
     "package": "tsc --noEmit && node esbuild.js --production",
     "icons": "node scripts/render-icons.mjs",
     "vsix": "pnpm run package && vsce package --no-dependencies",
+    "inspect:vsix": "node scripts/inspect-vsix.mjs",
+    "test:vsix": "pnpm run vsix && pnpm run inspect:vsix && node scripts/test-vsix.mjs",
+    "check:media": "node scripts/check-media.mjs",
+    "check:performance": "pnpm run compile && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/measure-performance.mjs",
+    "check:release": "node scripts/check-release.mjs",
+    "build:integration": "node scripts/build-integration.mjs",
+    "test:integration": "pnpm run compile && pnpm run build:integration && vscode-test",
     "check-types": "tsc --noEmit",
-    "test": "node --test --experimental-strip-types src/*.test.ts"
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --experimental-strip-types src/*.test.ts"
   },
   "devDependencies": {
     "@types/node": "^26.4.0",
     "@types/vscode": "^1.134.0",
     "@typescript/typescript-win32-x64": "7.0.2",
     "@vscode/vsce": "^3.9.2",
+    "@vscode/test-cli": "^0.0.15",
+    "@vscode/test-electron": "^3.1.0",
     "esbuild": "^0.28.2",
+    "ovsx": "^1.1.1",
     "sharp": "^0.35.4",
     "typescript": "^7.0.2"
   }

@@ -4,6 +4,8 @@ src/**
 scripts/**
 node_modules/**
 test-workspace/**
+test/**
+dist-test/**
 docs/**
 .github/**
 .scratch/**
@@ -15,6 +17,8 @@ pnpm-lock.yaml
 pnpm-workspace.yaml
 tsconfig.json
 esbuild.js
+.vscode-test.mjs
+*.code-workspace
 AGENTS.md
 CLAUDE.md
 SECURITY.md

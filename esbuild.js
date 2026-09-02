@@ -22,25 +22,37 @@ const esbuildProblemMatcherPlugin = {
   },
 };
 
-async function main() {
-  const ctx = await esbuild.context({
-    entryPoints: ["src/extension.ts"],
+async function createContext(options) {
+  return esbuild.context({
+    ...options,
     bundle: true,
-    format: "cjs",
     minify: production,
     sourcemap: !production,
     sourcesContent: false,
-    platform: "node",
-    outfile: "dist/extension.js",
-    external: ["vscode"],
     logLevel: "silent",
     plugins: [esbuildProblemMatcherPlugin],
   });
+}
+
+async function main() {
+  const extension = await createContext({
+    entryPoints: ["src/extension.ts"],
+    format: "cjs",
+    platform: "node",
+    outfile: "dist/extension.js",
+    external: ["vscode"],
+  });
+  const panel = await createContext({
+    entryPoints: ["src/panelClient.ts"],
+    format: "iife",
+    platform: "browser",
+    outfile: "dist/panel.js",
+  });
   if (watch) {
-    await ctx.watch();
+    await Promise.all([extension.watch(), panel.watch()]);
   } else {
-    await ctx.rebuild();
-    await ctx.dispose();
+    await Promise.all([extension.rebuild(), panel.rebuild()]);
+    await Promise.all([extension.dispose(), panel.dispose()]);
   }
 }
 

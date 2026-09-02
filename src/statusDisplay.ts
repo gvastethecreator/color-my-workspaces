@@ -1,8 +1,18 @@
-import { mixHex, normalizeHex } from "./color.ts";
+import { mixHex, normalizeHex, parseHex, relativeLuminance } from "./color.ts";
 import { truncateLabel } from "./identity.ts";
 
 export const STATUS_CLICK_HINT = "Click to change color";
 export const STATUS_CHIP_TEXT = "$(circle-filled)";
+export const STATUS_ITEM_ID = "workspaceColor.status";
+export const STATUS_ITEM_PRIORITY = 100;
+
+export type StatusPresentation = {
+  visible: boolean;
+  text: string;
+  tooltip: string;
+  accessibilityLabel: string;
+  command: "workspaceColor.quickActions" | "workspaceColor.openPanel";
+};
 
 export function formatStatusBarText(name: string): string {
   return truncateLabel(name);
@@ -32,5 +42,30 @@ export function statusChipColor(baseHex: string, statusBarBackground?: string): 
   if (!bar || bar !== base) {
     return base;
   }
-  return mixHex(base, "#000000", 0.28);
+  const parsed = parseHex(base);
+  const target = parsed && relativeLuminance(parsed) < 0.3 ? "#ffffff" : "#000000";
+  return mixHex(base, target, 0.28);
+}
+
+export function buildStatusPresentation(input: {
+  hasWorkspace: boolean;
+  name: string;
+  color?: string;
+  icon?: string;
+  showName: boolean;
+  showIcon: boolean;
+  clickTarget: "quick" | "full";
+}): StatusPresentation {
+  const text = formatStatusBarItem({
+    icon: input.showIcon ? input.icon : undefined,
+    name: input.showName ? input.name : undefined,
+  });
+  return {
+    visible: input.hasWorkspace,
+    text: text || "$(symbol-color)",
+    tooltip: statusBarTooltip({ name: input.name, color: input.color }),
+    accessibilityLabel: `Change workspace color for ${input.name}`,
+    command:
+      input.clickTarget === "full" ? "workspaceColor.openPanel" : "workspaceColor.quickActions",
+  };
 }

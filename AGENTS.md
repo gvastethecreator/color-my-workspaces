@@ -47,7 +47,7 @@ Single-context: root `CONTEXT.md` plus `docs/adr/`. See `docs/agents/domain.md`.
 - `src/statusDisplay.ts` — status bar text and tooltip
 - `src/chrome.ts` — theme-token map
 - `src/panel.ts` — settings webview (English)
-- `src/color.ts`, `src/palette.ts`, `src/identity.ts`, `src/icons.ts`, `src/merge.ts`, `src/panelState.ts`
+- `src/color.ts`, `src/palette.ts`, `src/identity.ts`, `src/icons.ts`, `src/ownership.ts`, `src/panelState.ts`
 - `src/*.test.ts` — Node test runner
 - `test-workspace/` — Extension Host folder
 - `docs/codemap/` — generated map; refresh with `$maintain-code-map`

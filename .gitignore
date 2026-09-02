@@ -1,6 +1,8 @@
 node_modules/
 dist/
+dist-test/
 out/
+.vscode-test/
 *.vsix
 *.log
 logs/
@@ -11,6 +13,5 @@ logs/
 .local/
 .code-review-graph/
 docs/codemap/.staging/
-docs/codemap/*.html
 .vscode/settings.json
 test-workspace/.vscode/

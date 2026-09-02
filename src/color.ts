@@ -141,12 +141,32 @@ export function relativeLuminance({ r, g, b }: Rgb): number {
   return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
 }
 
-export function contrastForeground(background: string): string {
-  const rgb = parseHex(background);
-  if (!rgb) {
-    return "#f4f4f4";
+export function contrastRatio(left: string | Rgb, right: string | Rgb): number {
+  const leftRgb = typeof left === "string" ? parseHex(left) : left;
+  const rightRgb = typeof right === "string" ? parseHex(right) : right;
+  if (!leftRgb || !rightRgb) {
+    return 1;
   }
-  return relativeLuminance(rgb) > 0.45 ? "#161616" : "#f4f4f4";
+  const brighter = Math.max(relativeLuminance(leftRgb), relativeLuminance(rightRgb));
+  const darker = Math.min(relativeLuminance(leftRgb), relativeLuminance(rightRgb));
+  return (brighter + 0.05) / (darker + 0.05);
+}
+
+export const DARK_FOREGROUND = "#161616";
+export const LIGHT_FOREGROUND = "#f4f4f4";
+const MIN_TEXT_CONTRAST = 4.5;
+
+export function contrastForeground(background: string): string {
+  const darkRatio = contrastRatio(background, DARK_FOREGROUND);
+  const lightRatio = contrastRatio(background, LIGHT_FOREGROUND);
+  const preferred = darkRatio >= lightRatio ? DARK_FOREGROUND : LIGHT_FOREGROUND;
+  if (Math.max(darkRatio, lightRatio) >= MIN_TEXT_CONTRAST) {
+    return preferred;
+  }
+
+  const blackRatio = contrastRatio(background, "#000000");
+  const whiteRatio = contrastRatio(background, "#ffffff");
+  return blackRatio >= whiteRatio ? "#000000" : "#ffffff";
 }
 
 export function fnv1a(input: string): number {
