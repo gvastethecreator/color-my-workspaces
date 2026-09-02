@@ -7,6 +7,8 @@ Current package version reviewed: `0.0.34`
 Next stabilization target: `0.1.0`  
 Last reviewed: 2026-09-01
 
+Implementation status and ticket evidence: [IMPLEMENTATION-EVIDENCE.md](IMPLEMENTATION-EVIDENCE.md).
+
 This document captures everything still required to turn the current published extension into a durable, compatibility-tested portfolio anchor. It does not propose a rewrite. It preserves the working product while addressing configuration ownership, rollback safety, current VS Code shell changes, accessibility, webview security, remote identity, integration testing, package verification, and release discipline.
 
 ---

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-31T08:00:00Z",
-  "generated_from_commit": "935b6e19bae256b83b1fc43d69cb377d3da0aa76",
+  "generated_at": "2026-09-02T05:05:26Z",
+  "generated_from_commit": "33a74f0b10793872bc81a12cedad259c2850e1b5",
   "scope": [
     "."
   ],
@@ -11,7 +11,7 @@
       "type": "interface",
       "boundary": "Esbuild",
       "entrypoints": [
-        "esbuild.js:main"
+        "esbuild.js:createContext"
       ],
       "tests": [],
       "callers": [
@@ -31,18 +31,18 @@
         "locations": [
           {
             "path": "esbuild.js",
-            "symbol": "main"
+            "symbol": "createContext"
           }
         ]
       }
     },
     {
       "id": "external-dependencies",
-      "path": "esbuild.js",
+      "path": ".vscode-test.mjs",
       "type": "external",
       "boundary": "External",
       "entrypoints": [
-        "esbuild.js:esbuild"
+        ".vscode-test.mjs:@vscode/test-cli"
       ],
       "tests": [],
       "callers": [
@@ -57,6 +57,10 @@
         {
           "id": "src",
           "type": "imports"
+        },
+        {
+          "id": "vscode-test",
+          "type": "imports"
         }
       ],
       "callees": [],
@@ -64,8 +68,8 @@
         "status": "verified",
         "locations": [
           {
-            "path": "esbuild.js",
-            "symbol": "esbuild"
+            "path": ".vscode-test.mjs",
+            "symbol": "@vscode/test-cli"
           }
         ]
       }
@@ -106,7 +110,7 @@
       "type": "service",
       "boundary": "Scripts",
       "entrypoints": [
-        "scripts/render-icons.mjs:roundCorners"
+        "scripts/build-integration.mjs:import { build } from \"esbuild\";"
       ],
       "tests": [],
       "callers": [
@@ -119,14 +123,18 @@
         {
           "id": "external-dependencies",
           "type": "imports"
+        },
+        {
+          "id": "src",
+          "type": "imports"
         }
       ],
       "evidence": {
         "status": "verified",
         "locations": [
           {
-            "path": "scripts/render-icons.mjs",
-            "symbol": "roundCorners"
+            "path": "scripts/build-integration.mjs",
+            "symbol": "import { build } from \"esbuild\";"
           }
         ]
       }
@@ -137,15 +145,46 @@
       "type": "module",
       "boundary": "Src",
       "entrypoints": [
-        "src/chrome.ts:flagsToElements"
+        "src/assets.d.ts:declare module \"*.css\";"
       ],
       "tests": [
         "src/chrome.test.ts",
         "src/color.test.ts",
+        "src/compatibility.test.ts",
         "src/icons.test.ts",
-        "src/identity.test.ts",
-        "src/merge.test.ts"
+        "src/identity.test.ts"
       ],
+      "callers": [
+        {
+          "id": "scripts",
+          "type": "imports"
+        }
+      ],
+      "callees": [
+        {
+          "id": "external-dependencies",
+          "type": "imports"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/assets.d.ts",
+            "symbol": "declare module \"*.css\";"
+          }
+        ]
+      }
+    },
+    {
+      "id": "vscode-test",
+      "path": ".vscode-test",
+      "type": "module",
+      "boundary": ".Vscode Test",
+      "entrypoints": [
+        ".vscode-test.mjs:workspaceFolder"
+      ],
+      "tests": [],
       "callers": [],
       "callees": [
         {
@@ -157,8 +196,8 @@
         "status": "verified",
         "locations": [
           {
-            "path": "src/chrome.ts",
-            "symbol": "flagsToElements"
+            "path": ".vscode-test.mjs",
+            "symbol": "workspaceFolder"
           }
         ]
       }
@@ -203,6 +242,14 @@
           {
             "path": "package.json",
             "symbol": "scripts/render-icons.mjs"
+          },
+          {
+            "path": "package.json",
+            "symbol": "scripts/inspect-vsix.mjs"
+          },
+          {
+            "path": "package.json",
+            "symbol": "scripts/test-vsix.mjs"
           }
         ]
       }
@@ -215,8 +262,38 @@
         "status": "verified",
         "locations": [
           {
+            "path": "scripts/build-integration.mjs",
+            "symbol": "esbuild"
+          },
+          {
+            "path": "scripts/check-media.mjs",
+            "symbol": "sharp"
+          },
+          {
             "path": "scripts/render-icons.mjs",
             "symbol": "sharp"
+          }
+        ]
+      }
+    },
+    {
+      "from": "scripts",
+      "to": "src",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "scripts/measure-performance.mjs",
+            "symbol": "../src/chrome.ts"
+          },
+          {
+            "path": "scripts/measure-performance.mjs",
+            "symbol": "../src/color.ts"
+          },
+          {
+            "path": "scripts/measure-performance.mjs",
+            "symbol": "../src/ownership.ts"
           }
         ]
       }
@@ -239,6 +316,20 @@
           {
             "path": "src/quickActions.ts",
             "symbol": "vscode"
+          }
+        ]
+      }
+    },
+    {
+      "from": "vscode-test",
+      "to": "external-dependencies",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": ".vscode-test.mjs",
+            "symbol": "@vscode/test-cli"
           }
         ]
       }

@@ -1,7 +1,7 @@
 {
-  "source_commit": "935b6e19bae256b83b1fc43d69cb377d3da0aa76",
+  "source_commit": "33a74f0b10793872bc81a12cedad259c2850e1b5",
   "working_tree_dirty": true,
-  "generated_at": "2026-08-31T08:00:00Z",
+  "generated_at": "2026-09-02T05:05:26Z",
   "scanned_scope": [
     "."
   ],
@@ -34,38 +34,44 @@
     {
       "id": ".",
       "path": ".",
-      "file_count": 13,
-      "fingerprint": "b042a78dd2bc5fc10e865feada0b4d2a5d277b3835dc026810dbdb9d6e8cdd71"
+      "file_count": 14,
+      "fingerprint": "20e6c6db4b2645e46951cf7248ce0518e0532266e1bba68519d593a76bce7fcb"
     },
     {
       "id": ".github",
       "path": ".github",
-      "file_count": 1,
-      "fingerprint": "0ff6a287b36eb682c3cfb7d63bd887f3ec3dc4f9e80c5d9ed6c129ccfb849d48"
+      "file_count": 2,
+      "fingerprint": "8d870537a7312f6f39eb03d0e71443a1df812493777bacbc1e6a54b31fdc8f91"
     },
     {
       "id": "docs",
       "path": "docs",
-      "file_count": 5,
-      "fingerprint": "d6bb1c7391f5dc9a1262c5d40504af307eb9bae44d6dceecc9bdc609e1164c97"
+      "file_count": 15,
+      "fingerprint": "6f2f2d74b66336cad65d5802d872c9cf032ada9e5f8db0342a8b1eee553b715a"
     },
     {
       "id": "media",
       "path": "media",
       "file_count": 6,
-      "fingerprint": "acbec245fafb8d74f51089d4d5951e1ba283c5156934fed2d317038efa1dafb9"
+      "fingerprint": "8ec42267ee32e4d7cc3fc3cb6d2b473b71849204b2fbdd2c6b0c3ee7c58c8f83"
     },
     {
       "id": "scripts",
       "path": "scripts",
-      "file_count": 1,
-      "fingerprint": "18d34a5b0d01c128a30e549e1b30d97525daa9c48e84c7c5e63bdbe5ecbd7e28"
+      "file_count": 7,
+      "fingerprint": "c5b8e384cbeb42838f8b57089c4513d9a3540070483bd7debbf7ebef39cb2e67"
     },
     {
       "id": "src",
       "path": "src",
-      "file_count": 20,
-      "fingerprint": "0dc65fbc8fd890abbe30c2362f52a4b32f2eb6bb18adebac8fdddaed74db4796"
+      "file_count": 36,
+      "fingerprint": "e68dbd6e86052371301086e98d65bbb5bfac95d3fa589ff84f9c0aec940576a6"
+    },
+    {
+      "id": "test",
+      "path": "test",
+      "file_count": 4,
+      "fingerprint": "94324ac315d97ebca2fe35535c92cff737120a87fefb776faca0d57c94b0c8a4"
     },
     {
       "id": "test-workspace",
