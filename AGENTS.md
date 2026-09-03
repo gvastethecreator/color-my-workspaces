@@ -10,7 +10,7 @@ VS Code / Cursor extension (`gvastethecreator.color-my-workspaces`). pnpm. TypeS
 - Compile: `pnpm run compile`
 - Watch: `pnpm run watch`
 - Production bundle: `pnpm run package`
-- Icons from SVG: `pnpm run icons`
+- Media from approved raster sources: `pnpm run icons`
 - VSIX: `pnpm run vsix`
 
 F5 (`Run Extension`) compiles, then opens `test-workspace/` so chrome colors do not land in this repo.

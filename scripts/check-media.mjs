@@ -18,7 +18,7 @@ for (const [file, width, height] of outputs) {
   if ((width && metadata.width !== width) || (height && metadata.height !== height)) {
     throw new Error(`${file} has ${metadata.width}x${metadata.height}; expected ${width}x${height}`);
   }
-  if (file.includes("icon") && metadata.hasAlpha !== true) {
+  if (metadata.hasAlpha !== true) {
     throw new Error(`${file} must preserve alpha transparency`);
   }
 }

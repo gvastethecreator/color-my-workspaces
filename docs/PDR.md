@@ -128,6 +128,10 @@ The release runtime is bundled. There are no production dependencies.
 - high-contrast themes retain Status Bar and panel identity while chrome overrides are suspended;
 - the Status Bar item has a stable id, accessible label, tooltip, command, and sane priority.
 
+## Assets
+
+`media/source/color-my-workspaces-approved.png` preserves the approved transparent icon at 512×512. Marketplace and high-resolution PNGs are rendered directly from that raster source; no SVG reinterpretation remains. `media/preview-source.png` remains the settings-panel capture used for the deterministic native-alpha preview.
+
 ## Explicit non-goals
 
 - theme creation or broad theme management;
