@@ -29,7 +29,7 @@ for (const file of required) {
 const forbidden = entries
   .map((entry) => entry.name)
   .filter((name) =>
-    /(^|\/)(src|scripts|test|docs|node_modules|\.github|\.scratch|\.vscode-test)(\/|$)|\.code-workspace$|\.(ts|map)$/.test(
+    /(^|\/)(src|scripts|test|docs|node_modules|\.github|\.scratch|\.vscode-test)(\/|$)|\/media\/source\/|\.code-workspace$|\.(ts|map)$/.test(
       name,
     ),
   );

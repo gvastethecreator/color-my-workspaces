@@ -5,7 +5,7 @@ import sharp from "sharp";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const media = path.join(root, "media");
-const svgPath = path.join(media, "icon.svg");
+const iconSourcePath = path.join(media, "source", "color-my-workspaces-approved.png");
 const marketplaceIconPath = path.join(media, "icon.png");
 const hiresIconPath = path.join(media, "icon-512.png");
 const previewSourcePath = path.join(media, "preview-source.png");
@@ -39,16 +39,19 @@ async function roundCorners(input, radius) {
 }
 
 async function renderSquareIcons() {
-  const svg = await readFile(svgPath);
-  const base = sharp(svg, { density: 384 }).ensureAlpha();
+  const base = sharp(iconSourcePath).ensureAlpha();
 
-  await base.clone().resize(512, 512, { fit: "fill" }).png().toFile(hiresIconPath);
-  await base.clone().resize(128, 128, { fit: "fill" }).png().toFile(marketplaceIconPath);
+  await base.clone().resize(512, 512, { fit: "fill" }).composite([{ input: cornerCutout(512), blend: "dest-out" }]).png().toFile(hiresIconPath);
+  await base.clone().resize(128, 128, { fit: "fill" }).composite([{ input: cornerCutout(128), blend: "dest-out" }]).png().toFile(marketplaceIconPath);
 
   const meta128 = await sharp(marketplaceIconPath).metadata();
   const meta512 = await sharp(hiresIconPath).metadata();
   console.log(`icon.png ${meta128.width}x${meta128.height}`);
   console.log(`icon-512.png ${meta512.width}x${meta512.height}`);
+}
+
+function cornerCutout(size) {
+  return Buffer.from(`<svg width="${size}" height="${size}"><rect width="1" height="1" fill="white"/><rect x="${size - 1}" width="1" height="1" fill="white"/><rect y="${size - 1}" width="1" height="1" fill="white"/><rect x="${size - 1}" y="${size - 1}" width="1" height="1" fill="white"/></svg>`);
 }
 
 async function composeSocialPreview() {
