@@ -76,15 +76,15 @@ Status vocabulary:
 - TypeScript: pass
 - Unit tests: 97 passing
 - Production compile: pass
-- VS Code stable 1.135.0 Extension Host: 7 passing
+- VS Code stable 1.136.1 Extension Host: 7 passing
 - VS Code minimum 1.134.0 Extension Host: 7 passing
 - Production dependency audit: no known vulnerabilities
 - Performance budgets: pass
 - Local runtime/visual QA: Dark and Default High Contrast pass; 97 named controls, no unnamed interactive AX nodes, strict CSP, and no horizontal overflow at ~200%/207 px
-- Media: four deterministic files pass; README preview is the current rendered panel
-- VSIX: 12 entries, 92,676 bytes; isolated install/activation/command/explicit-apply smoke passes on 1.135.0
+- Media: deterministic raster icon and social assets pass; both 1200×800 native-alpha README previews come from Color My Workspaces 0.1.0 installed in stable VS Code
+- VSIX: current 13-entry, 470,868-byte archive inspection passes; isolated install/activation/command/explicit-apply smoke passes on 1.136.1
 - Code map: regenerated from the final module boundaries; static validation and self-contained Chrome smoke pass with no unknown edges or network requests
-- GitHub CI/Insiders/macOS/Linux: pending publication of the PR branch
+- Hosted Insiders, macOS, and Linux results remain remote CI gates; local Windows evidence does not replace them
 - Registry publication: not authorized
 
 ## Release authority

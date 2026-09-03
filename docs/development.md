@@ -98,9 +98,9 @@ Modern UI omits title/activity/status borders. High-contrast themes supply an em
 ## Generated artifacts
 
 - `dist/`, `dist-test/`, `.vscode-test/`, and `*.vsix` are ignored.
-- `media/source/color-my-workspaces-approved.png` and `media/preview-source.png` are source assets.
+- `media/source/color-my-workspaces-approved.png` is the accepted icon source asset.
 - The approved icon remains raster throughout the pipeline; do not recreate an SVG interpretation.
-- `pnpm run icons` regenerates committed PNGs.
+- `pnpm run icons` regenerates the committed icon and social PNGs. README previews come from the portfolio's installed-extension capture harness.
 - The VSIX excludes source, tests, scripts, docs, source maps, scratch data, and high-resolution/source media.
 
 ## Code map

@@ -16,7 +16,16 @@ Color My Workspaces colors the title bar, activity bar, Status Bar, and command 
 
 It does not write anything on first activation. Applying a color is explicit, and Clear restores the values that existed before the extension took ownership.
 
-![Color My Workspaces settings panel](media/preview.png)
+<table>
+  <tr>
+    <td width="50%"><img src="media/preview.png" alt="Color My Workspaces applied to a TypeScript project in VS Code" width="100%"></td>
+    <td width="50%"><img src="media/preview-settings.png" alt="Color My Workspaces settings beside example TypeScript code" width="100%"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Colored workspace</sub></td>
+    <td align="center"><sub>Minimal settings</sub></td>
+  </tr>
+</table>
 
 ## Get started
 

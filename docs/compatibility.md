@@ -22,13 +22,13 @@ Minimum VS Code: 1.134.0
 
 | Lane | Coverage | Current evidence |
 | --- | --- | --- |
-| Windows stable 1.135.0 | Activation, commands, apply, conflict, Clear, Reset, panel lifecycle | Local pass: 7 tests |
+| Windows stable 1.136.1 | Activation, commands, apply, conflict, Clear, Reset, panel lifecycle | Local pass: 7 tests |
 | Windows minimum 1.134.0 | Same Extension Host suite | Local pass: 7 tests; CI lane configured |
 | Ubuntu stable | Same Extension Host suite under Xvfb | CI lane configured |
 | macOS stable | Same Extension Host suite | CI lane configured |
 | Ubuntu Insiders | Same Extension Host suite | CI lane configured |
 | Unit tests | Identity, ownership, conflict, queue, colors, compatibility, panel parser, status, manifest | Local pass: 97 tests |
-| Installed VSIX | Isolated install, activation without write, command registration, explicit apply | Local pass on stable 1.135.0; CI package gate configured |
+| Installed VSIX | Isolated install, activation without write, command registration, explicit apply | Local pass on stable 1.136.1; CI package gate configured |
 | Media | Dimensions, alpha, deterministic rerender | Local pass: four files; release gate configured |
 | Performance | Hot paths, coalescing, bundle size, activation, three panel cycles | Local/CI budgets |
 
@@ -41,7 +41,7 @@ CI source: `.github/workflows/ci.yml`.
 - Accessibility tree: 97 controls have names and no interactive node is unnamed.
 - Strict CSP: default deny, external bundled CSS/JavaScript, one cryptographic script nonce, no inline event handlers.
 - Approximately 200% zoom: 207 px panel viewport, `scrollWidth` equals viewport width, and the complete footer remains reachable without horizontal scrolling.
-- Current rendered source is stored in `media/preview-source.png`; `media/preview.png` is its deterministic rounded derivative.
+- `media/preview.png` and `media/preview-settings.png` were captured from Color My Workspaces 0.1.0 installed in stable VS Code 1.136.1 against a synthetic TypeScript workspace, then placed on transparent 1200×800 canvases.
 
 Light, High Contrast Light, full keyboard traversal, remote/virtual providers, platform rendering, Modern UI permutations, and Peacock coexistence remain release-matrix gates.
 

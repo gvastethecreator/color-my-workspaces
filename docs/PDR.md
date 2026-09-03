@@ -130,7 +130,7 @@ The release runtime is bundled. There are no production dependencies.
 
 ## Assets
 
-`media/source/color-my-workspaces-approved.png` preserves the approved transparent icon at 512×512. Marketplace and high-resolution PNGs are rendered directly from that raster source; no SVG reinterpretation remains. `media/preview-source.png` remains the settings-panel capture used for the deterministic native-alpha preview.
+`media/source/color-my-workspaces-approved.png` preserves the approved transparent icon at 512×512. Marketplace and high-resolution PNGs are rendered directly from that raster source; no SVG reinterpretation remains. `media/preview.png` shows the extension applied to a synthetic TypeScript workspace, and `media/preview-settings.png` shows the minimal settings panel beside the same code. Both are native-alpha captures from Color My Workspaces 0.1.0 installed in stable VS Code.
 
 ## Explicit non-goals
 

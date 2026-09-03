@@ -15,6 +15,7 @@ const required = [
   "extension/dist/panel.css",
   "extension/media/icon.png",
   "extension/media/preview.png",
+  "extension/media/preview-settings.png",
   "extension/readme.md",
   "extension/changelog.md",
   "extension/license.txt",
@@ -44,6 +45,14 @@ if (manifest.version !== sourceManifest.version || manifest.main !== sourceManif
 }
 if (archive.length > 5 * 1024 * 1024) {
   throw new Error(`VSIX is unexpectedly large: ${archive.length} bytes`);
+}
+
+for (const name of ["extension/media/preview.png", "extension/media/preview-settings.png"]) {
+  const entry = entries.find((candidate) => candidate.name === name);
+  const preview = pngMetadata(extractEntry(archive, entry), name);
+  if (preview.width !== 1200 || preview.height !== 800 || ![4, 6].includes(preview.colorType)) {
+    throw new Error(`${name} must be a 1200x800 PNG with alpha.`);
+  }
 }
 
 console.log(
@@ -108,4 +117,15 @@ function extractEntry(buffer, entry) {
     throw new Error(`Could not extract ${entry.name}`);
   }
   return value;
+}
+
+function pngMetadata(buffer, label) {
+  if (buffer.subarray(0, 8).toString("hex") !== "89504e470d0a1a0a" || buffer.subarray(12, 16).toString("ascii") !== "IHDR") {
+    throw new Error(`${label} must be PNG.`);
+  }
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+    colorType: buffer.readUInt8(25),
+  };
 }

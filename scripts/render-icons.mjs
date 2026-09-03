@@ -1,4 +1,4 @@
-import { mkdir, readFile } from "node:fs/promises";
+import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -8,17 +8,7 @@ const media = path.join(root, "media");
 const iconSourcePath = path.join(media, "source", "color-my-workspaces-approved.png");
 const marketplaceIconPath = path.join(media, "icon.png");
 const hiresIconPath = path.join(media, "icon-512.png");
-const previewSourcePath = path.join(media, "preview-source.png");
-const previewPath = path.join(media, "preview.png");
 const socialOutPath = path.join(media, "social-preview.png");
-const previewArgumentIndex = process.argv.indexOf("--preview-source");
-const previewInputPath = previewArgumentIndex === -1
-  ? undefined
-  : process.argv[previewArgumentIndex + 1];
-
-if (previewArgumentIndex !== -1 && !previewInputPath) {
-  throw new Error("--preview-source requires a file path");
-}
 
 async function roundCorners(input, radius) {
   // Fresh sharp pipelines only — reusing one after metadata() can corrupt bounds.
@@ -100,24 +90,5 @@ async function composeSocialPreview() {
   console.log(`social-preview.png ${width}x${height} (rx=24)`);
 }
 
-async function roundPreview() {
-  let source;
-  if (previewInputPath) {
-    source = await readFile(path.resolve(root, previewInputPath));
-    await sharp(source).png().toFile(previewSourcePath);
-  } else {
-    try {
-      source = await readFile(previewSourcePath);
-    } catch {
-      source = await readFile(previewPath);
-      await sharp(source).png().toFile(previewSourcePath);
-    }
-  }
-  await sharp(await roundCorners(source, 20)).png().toFile(previewPath);
-  const meta = await sharp(previewPath).metadata();
-  console.log(`preview.png ${meta.width}x${meta.height} (rx=20)`);
-}
-
 await renderSquareIcons();
 await composeSocialPreview();
-await roundPreview();
