@@ -78,6 +78,26 @@ Reset does the same restoration, then removes all `workspaceColor.*` workspace v
 
 Command ids are public integration points and remain stable.
 
+## Settings
+
+| Setting | Default | Purpose |
+| --- | --- | --- |
+| `workspaceColor.color` | empty | Saved hex color; empty uses the stable derived color |
+| `workspaceColor.autoApply` | `false` | Reapply after explicit opt-in |
+| `workspaceColor.identity` | empty | Stable identity override for color derivation |
+| `workspaceColor.label` | empty | Status Bar name; empty uses the workspace or folder name |
+| `workspaceColor.showStatusBarLabel` | `true` | Show the workspace name |
+| `workspaceColor.icon` | empty | Status Bar Codicon id |
+| `workspaceColor.showStatusBarIcon` | `false` | Show the selected or default icon |
+| `workspaceColor.statusBarClick` | `quick` | Open Quick settings or Full settings |
+| `workspaceColor.stepped` | `true` | Use a different tone on each surface |
+| `workspaceColor.titleBar` | `true` | Color the title bar and window shell |
+| `workspaceColor.activityBar` | `true` | Color the activity bar |
+| `workspaceColor.statusBar` | `true` | Color the Status Bar |
+| `workspaceColor.commandCenter` | `true` | Color the command center |
+
+All extension settings use workspace-window scope.
+
 ## Compatibility
 
 | Environment | Support |

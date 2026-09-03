@@ -23,12 +23,13 @@ assert.ok(security.includes(`Release candidate: ${manifest.version}`));
 assert.ok(publishing.includes("Rollback"));
 assert.ok(vscodeIgnore.includes("src/**"));
 assert.ok(!panelHost.includes("retainContextWhenHidden"));
+assert.ok(readme.includes("(docs/PDR.md)"), "README must link to the product contract");
 
 for (const command of manifest.contributes.commands) {
-  assert.ok(readme.includes(`\`${command.command}\``), `README is missing ${command.command}`);
+  assert.ok(pdr.includes(`\`${command.command}\``), `PDR is missing ${command.command}`);
 }
 for (const setting of Object.keys(manifest.contributes.configuration.properties)) {
-  assert.ok(readme.includes(`\`${setting}\``), `README is missing ${setting}`);
+  assert.ok(pdr.includes(`\`${setting}\``), `PDR is missing ${setting}`);
 }
 for (const file of [
   manifest.icon,
