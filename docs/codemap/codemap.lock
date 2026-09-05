@@ -1,7 +1,7 @@
 {
-  "source_commit": "8025861155741b5620be8b0252bf1b4d61f094ec",
-  "working_tree_dirty": false,
-  "generated_at": "2026-09-02T05:15:53Z",
+  "source_commit": "c9bb84f5d9a321112f46fbc73fdf340572d9f61b",
+  "working_tree_dirty": true,
+  "generated_at": "2026-09-05T04:45:27Z",
   "scanned_scope": [
     "."
   ],
@@ -35,43 +35,43 @@
       "id": ".",
       "path": ".",
       "file_count": 14,
-      "fingerprint": "5b858a1efaa1eb22aad0426daf683aee9990201864947e0538ecb7edafe50ec4"
+      "fingerprint": "113a25e8fa066edccc28695a6599a55cc038bbc357362aa0da8a08bde1398f8f"
     },
     {
       "id": ".github",
       "path": ".github",
       "file_count": 2,
-      "fingerprint": "8d870537a7312f6f39eb03d0e71443a1df812493777bacbc1e6a54b31fdc8f91"
+      "fingerprint": "2568b223ad92ba3dbdb7ee26f8c4fd924faf451e79b9b6307d7cfd33b44f5b3e"
     },
     {
       "id": "docs",
       "path": "docs",
       "file_count": 15,
-      "fingerprint": "6f2f2d74b66336cad65d5802d872c9cf032ada9e5f8db0342a8b1eee553b715a"
+      "fingerprint": "3f8e054b07f30be2c30db7a70c8e0692e3526136ad025fd158b7754470352d70"
     },
     {
       "id": "media",
       "path": "media",
       "file_count": 6,
-      "fingerprint": "8ec42267ee32e4d7cc3fc3cb6d2b473b71849204b2fbdd2c6b0c3ee7c58c8f83"
+      "fingerprint": "ee4daf3a77fe9449f61dc020729e71002537fa778efe297a31091405b38c1b4d"
     },
     {
       "id": "scripts",
       "path": "scripts",
       "file_count": 7,
-      "fingerprint": "c5b8e384cbeb42838f8b57089c4513d9a3540070483bd7debbf7ebef39cb2e67"
+      "fingerprint": "672fca48c46e057a384d52d4f593ee12b3ca0530c463a48f310b3154ab154db1"
     },
     {
       "id": "src",
       "path": "src",
       "file_count": 36,
-      "fingerprint": "e68dbd6e86052371301086e98d65bbb5bfac95d3fa589ff84f9c0aec940576a6"
+      "fingerprint": "2eb8f19f10ce5648eb2b41d6c2a42984bd3f4306d24cba6098f4d1d4a1ab4f78"
     },
     {
       "id": "test",
       "path": "test",
       "file_count": 4,
-      "fingerprint": "94324ac315d97ebca2fe35535c92cff737120a87fefb776faca0d57c94b0c8a4"
+      "fingerprint": "7a9353e2a4e877d120386bfc7af5369d5769d91ce6edf2c045add5a5482fd466"
     },
     {
       "id": "test-workspace",

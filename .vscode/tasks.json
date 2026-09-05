@@ -67,6 +67,14 @@
       "args": ["run", "icons"],
       "group": "none",
       "problemMatcher": []
+    },
+    {
+      "label": "Check media",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "check:media"],
+      "group": "none",
+      "problemMatcher": []
     }
   ]
 }

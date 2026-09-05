@@ -1,7 +1,7 @@
-# Code map · vscode-color-my-workspaces-pr1
+# Code map · vscode-color-my-workspaces
 
-generated: 2026-09-02T05:15:53Z
-commit: 802586115574
+generated: 2026-09-05T04:45:27Z
+commit: c9bb84f5d9a3
 scope: .
 
 counts: 6 nodes · 7 edges · 0 flows · 0 unknown
